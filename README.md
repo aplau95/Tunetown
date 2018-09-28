@@ -7,6 +7,7 @@ You'll probably also need to install the JavaFX Plugin for Eclipse. I followed t
 
 ### Building and Running
 Right click on the "pom.xml" file on the left then "Run As" > "1 Maven Build"
+
 Right click on "TuneTown" folder on the left then "Run As" > "1 Java Application"
 
 If theres a popup that asks you to select the java application then click "Main - application" and then "ok".
