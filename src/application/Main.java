@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -32,25 +35,24 @@ import com.wrapper.spotify.SpotifyApi;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
+
+import javazoom.jl.player.Player;;
 
 
 public class Main extends Application {
 	
 	private static MediaPlayer mediaPlayer;
+	private static Media hit;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
-			
 			
 			CloseableHttpClient client = HttpClientBuilder.create().build();
 			
@@ -83,30 +85,19 @@ public class Main extends Application {
 			System.out.println(preview_url);
 			
 			try {
-				Media hit = new Media(preview_url.replace("https","http"));
-				mediaPlayer = new MediaPlayer(hit);
-				mediaPlayer.play();
+				URL url = new URL(preview_url);	
+				Player myPlayer = new Player(url.openStream());
+				myPlayer.play();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+					
 
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static void aplay(String url) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-	    AudioInputStream a = AudioSystem.getAudioInputStream(openStream(url));
-	    Clip c = AudioSystem.getClip();
-	    c.open(a);
-	    c.start();
-	}
-	public static InputStream openStream(String myUrl) throws IOException {
-	    final URL url = new URL(myUrl);
-	    final URLConnection con = url.openConnection();
-	    con.setRequestProperty("User-Agent", "My Client");
-	    return new BufferedInputStream(con.getInputStream());
-	}
 	
 	public static void main(String[] args) {
 		launch(args);
