@@ -36,12 +36,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.TilePane;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
 class SpotifyAccessor {
@@ -122,15 +124,47 @@ public class Main extends Application {
         Label headerLbl = new Label("TuneTown");
         // Create the Label for the Input
         Label leftLbl = new Label("Songs");
+        Button navHomeBtn = new Button("HOME");
+        Button navPlaylistBtn = new Button("PLAYLIST");
+        
+    	// Navigation pane
+        // Create the horizontal TilePane with a 10px spacing  
+        float hgap = 10f;
+        float vgap = 10f;
+        TilePane navPane = new TilePane(Orientation.HORIZONTAL);//,hgap, vgap);
+        navPane.setAlignment(Pos.CENTER);
+        navPane.setPrefColumns(4);
+        navPane.getChildren().add(new Button("Home"));
+        navPane.getChildren().add(new Button("Discover"));
+        navPane.getChildren().add(new Button("Playlist"));
+        navPane.getChildren().add(new Button("Favorites"));
 
+        // Set the padding of the TilePane     
+        navPane.setStyle("-fx-padding: 10;");
+        // Set the border-style of the TilePane
+        navPane.setStyle("-fx-border-style: solid inside;");
+        // Set the border-width of the TilePane
+        navPane.setStyle("-fx-border-width: 2;");
+        // Set the border-insets of the TilePane
+        navPane.setStyle("-fx-border-insets: 5;");
+        // Set the border-radius of the TilePane
+        navPane.setStyle("-fx-border-radius: 5;");
+        // Set the border-color of the TilePane
+        navPane.setStyle("-fx-border-color: blue;");
 		
 		BorderPane root = new BorderPane();
 		root.setTop(headerLbl);
 		root.setLeft(leftLbl);
+		root.setBottom(navPane);
 		
 		// Set alignment
 		BorderPane.setAlignment(headerLbl, Pos.TOP_CENTER);
 		BorderPane.setAlignment(leftLbl, Pos.TOP_CENTER);
+		BorderPane.setAlignment(navHomeBtn, Pos.BOTTOM_RIGHT);
+		BorderPane.setAlignment(navPane, Pos.BOTTOM_CENTER);
+		
+ 
+
 		
 		
 		Scene scene = new Scene(root,400,800);
