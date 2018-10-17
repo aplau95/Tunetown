@@ -32,6 +32,15 @@ import com.wrapper.spotify.SpotifyApi;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.geometry.Pos;
+
+
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
@@ -88,11 +97,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			
-			BorderPane root = new BorderPane();
- 			Scene scene = new Scene(root,400,400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			setupStage(primaryStage);
 			
 			SpotifyAccessor spotify = new SpotifyAccessor("160b683f23e946ed8000ec438e36890a",
 					"efa3a5718c6a49acb3828305c3a01c7b");
@@ -112,6 +117,35 @@ public class Main extends Application {
 		}
 	}
 	
+	public void setupStage (Stage primaryStage) {
+		// Create the Label for the Header
+        Label headerLbl = new Label("TuneTown");
+        // Create the Label for the Input
+        Label leftLbl = new Label("Songs");
+
+		
+		BorderPane root = new BorderPane();
+		root.setTop(headerLbl);
+		root.setLeft(leftLbl);
+		
+		// Set alignment
+		BorderPane.setAlignment(headerLbl, Pos.TOP_CENTER);
+		BorderPane.setAlignment(leftLbl, Pos.TOP_CENTER);
+		
+		
+		Scene scene = new Scene(root,400,800);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		
+		//Image imgPlay = new Image(getClass().getResourceAsStream("play.png"));
+		//Button btnPlay = new Button();
+		//btnPlay.setGraphic(new ImageView(imgPlay));
+		
+		//root.getChildren().add(btnPlay);
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		
+		//return;
+	}
 	
 	public static void main(String[] args) {
 		launch(args);
