@@ -1,7 +1,5 @@
 package application;
 
-import java.net.URL;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Node;
@@ -23,45 +21,6 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-class SpotifyAccessor {
-	
-	private String accessToken;
-	private CloseableHttpClient client;
-	
-	public SpotifyAccessor(String clientId, String clientSecret) throws ClientProtocolException, IOException {
-		
-		client = HttpClientBuilder.create().build();
-		
-		HttpPost httppost = new HttpPost("https://accounts.spotify.com/api/token");
-		
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("grant_type", "client_credentials"));
-		httppost.setEntity(new UrlEncodedFormEntity(params));
-		
-		String encoding = Base64.getEncoder().encodeToString((clientId+":"+clientSecret).getBytes());
-		httppost.setHeader("Authorization", "Basic " + encoding);
-		
-		CloseableHttpResponse response = client.execute(httppost);
-		String bodyAsString = EntityUtils.toString(response.getEntity());
-		
-		JSONObject obj = new JSONObject(bodyAsString);
-		
-		accessToken = obj.getString("access_token");
-		
-	}
-	
-	public JSONObject getSampleTrack() throws ClientProtocolException, IOException {
-		
-		HttpGet httpget = new HttpGet("https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V");
-		httpget.setHeader("Authorization","Bearer "+accessToken);
-		
-		CloseableHttpResponse response = client.execute(httpget);
-		String bodyAsString = EntityUtils.toString(response.getEntity());
-		
-		return new JSONObject(bodyAsString);
-	}
-	
-}
 public class Main extends Application {
 	
 	@Override
