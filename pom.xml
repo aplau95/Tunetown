@@ -22,10 +22,31 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>application.Main</mainClass>
+				</configuration>
+			</plugin>
     </plugins>
   </build>
   <dependencies>
   
+	<dependency>
+		<groupId>org.openjfx</groupId>
+		<artifactId>javafx-controls</artifactId>
+		<version>11</version>
+	</dependency>
+
   	<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 	<dependency>
 	    <groupId>org.apache.httpcomponents</groupId>
