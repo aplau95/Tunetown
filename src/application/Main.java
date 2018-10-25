@@ -108,6 +108,7 @@ public class Main extends Application {
 		root.setCenter(nextNode);
 		nextController.afterShow();
 		currentController.afterHide();
+		currentController = nextController;
 	}
 
 	
