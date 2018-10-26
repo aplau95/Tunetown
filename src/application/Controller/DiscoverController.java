@@ -1,55 +1,94 @@
 package application.Controller;
 
+import application.LoopingAudioPlayer;
+import application.SpotifyAccessor;
+import application.TrackData;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DiscoverController implements Controller {
 
-	/**
-	 * Called once at app startup to build initial scene elements
-	 */
+	VBox root;
+
+	ImageView albumI;
+	ProgressBar pb;
+	Label songNameL;
+	Label artistL;
+	Button nextB;
+
+	SpotifyAccessor spotify;
+	TrackData currentTrack;
+	LoopingAudioPlayer player;
+
+	ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+	public DiscoverController() {
+		try {
+			spotify = new SpotifyAccessor();
+			currentTrack = spotify.getNextRecommendation();
+		} catch (Exception e) {
+			System.out.println("Failed to connect to spotify");
+		}
+	}
+
+
 	@Override
 	public Node buildScene() {
-		Label lbl = new Label("DISCOVER");
 
-		VBox root = new VBox();
+		root = new VBox();
 
-		root.getChildren().add(lbl);
+		albumI = new ImageView();
+		albumI.setFitHeight(300);
+		albumI.setPreserveRatio(true);
+
+		albumI.setImage(new Image(currentTrack.getImageUrl()));
+		pb = new ProgressBar(0.0);
+		songNameL = new Label(currentTrack.getName());
+		artistL = new Label(currentTrack.getArtists());
+
+		nextB = new Button("Next");
+		nextB.setOnAction(this::onNext);
+
+		root.getChildren().addAll(albumI, songNameL, pb, artistL, nextB);
 		root.setAlignment(Pos.CENTER);
 
-		new Thread(() -> {
-
-			try {
-
-//Uncomment to play audio for 5 seconds
-//				SpotifyAccessor spotify = new SpotifyAccessor("160b683f23e946ed8000ec438e36890a",
-//						"efa3a5718c6a49acb3828305c3a01c7b");
-//
-//				String previewUrl = spotify.getSampleTrack().getString("preview_url");
-//
-//				LoopingAudioPlayer player = new LoopingAudioPlayer(new URL(previewUrl));
-//
-//				//Start Playing
-//				Thread audioThread = new Thread(player);
-//				audioThread.start();
-//
-//				//Wait 5 seconds
-//				Thread.sleep(5000);
-//
-//				//Stop and after it stops print exited
-//				player.stop(() -> {
-//					System.out.println("Exited");
-//				});
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-
-		}).start();
-
 		return root;
+	}
+
+	public void onNext(ActionEvent e) {
+		player.stop();
+
+		try {
+
+			currentTrack = spotify.getNextRecommendation();
+			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
+			executorService.submit(player);
+
+			albumI.setImage(new Image(currentTrack.getImageUrl()));
+			songNameL.setText(currentTrack.getName());
+			artistL.setText(currentTrack.getArtists());
+
+		} catch(MalformedURLException ex) {
+			System.out.println("Error");
+		}
+	}
+
+	public Void onTime(Double time) {
+		pb.setProgress(time/30.0);
+
+		return null;
 	}
 
 	@Override
@@ -63,6 +102,18 @@ public class DiscoverController implements Controller {
 	@Override
 	public void afterShow() {
 
+		try {
+
+			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
+			executorService.submit(player);
+
+			albumI.setImage(new Image(currentTrack.getImageUrl()));
+			songNameL.setText(currentTrack.getName());
+			artistL.setText(currentTrack.getArtists());
+
+		} catch(MalformedURLException e) {
+
+		}
 	}
 
 	/**
@@ -72,7 +123,9 @@ public class DiscoverController implements Controller {
 	 */
 	@Override
 	public void beforeHide() {
-
+		if(player != null) {
+			player.stop();
+		}
 	}
 
 	/**

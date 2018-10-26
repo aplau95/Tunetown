@@ -1,58 +1,83 @@
 package application;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
-import org.json.JSONObject;
+import com.neovisionaries.i18n.CountryCode;
+import com.wrapper.spotify.SpotifyApi;
+import com.wrapper.spotify.exceptions.SpotifyWebApiException;
+import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
+import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
+import com.wrapper.spotify.model_objects.specification.Recommendations;
+import com.wrapper.spotify.model_objects.specification.Track;
+import com.wrapper.spotify.model_objects.specification.TrackSimplified;
 
-class SpotifyAccessor {
-	
-	private String accessToken;
-	private CloseableHttpClient client;
-	
-	public SpotifyAccessor(String clientId, String clientSecret) throws ClientProtocolException, IOException {
-		
-		client = HttpClientBuilder.create().build();
-		
-		HttpPost httppost = new HttpPost("https://accounts.spotify.com/api/token");
-		
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("grant_type", "client_credentials"));
-		httppost.setEntity(new UrlEncodedFormEntity(params));
-		
-		String encoding = Base64.getEncoder().encodeToString((clientId+":"+clientSecret).getBytes());
-		httppost.setHeader("Authorization", "Basic " + encoding);
-		
-		CloseableHttpResponse response = client.execute(httppost);
-		String bodyAsString = EntityUtils.toString(response.getEntity());
-		
-		JSONObject obj = new JSONObject(bodyAsString);
-		
-		accessToken = obj.getString("access_token");
+public class SpotifyAccessor {
+
+	private static final String clientId = "160b683f23e946ed8000ec438e36890a";
+	private static final String clientSecret = "efa3a5718c6a49acb3828305c3a01c7b";
+
+	private static final SpotifyApi spotifyApi = new SpotifyApi.Builder()
+			.setClientId(clientId)
+			.setClientSecret(clientSecret)
+			.build();
+
+	public SpotifyAccessor() {
+
+		try {
+
+			final ClientCredentials clientCredentials = spotifyApi.clientCredentials()
+					.build()
+					.execute();
+
+			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
+
+		} catch (IOException | SpotifyWebApiException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
 		
 	}
 	
-	public JSONObject getSampleTrack() throws ClientProtocolException, IOException {
-		
-		HttpGet httpget = new HttpGet("https://api.spotify.com/v1/tracks/2TpxZ7JUBn3uw46aR7qd6V");
-		httpget.setHeader("Authorization","Bearer "+accessToken);
-		
-		CloseableHttpResponse response = client.execute(httpget);
-		String bodyAsString = EntityUtils.toString(response.getEntity());
-		
-		return new JSONObject(bodyAsString);
+	public TrackData getNextRecommendation() {
+
+		try {
+
+			do {
+				final Recommendations recommendations = spotifyApi.getRecommendations()
+						.limit(10)
+						.market(CountryCode.US)
+						.max_popularity(65)
+						.min_popularity(10)
+						.seed_genres("pop")
+						.build()
+						.execute();
+
+				TrackSimplified[] simplifiedTracks = recommendations.getTracks();
+
+				Optional<TrackSimplified> tOptional = Arrays.stream(simplifiedTracks)
+						.filter((t) -> t.getPreviewUrl() != null)
+						.findFirst();
+
+				if(tOptional.isPresent()) {
+					Track t = spotifyApi.getTrack(tOptional.get().getId()).build().execute();
+					return new TrackData(){{
+						setName(t.getName());
+						setPreviewUrl(t.getPreviewUrl());
+						setArtists(Arrays.stream(t.getArtists()).map(ArtistSimplified::getName).collect(Collectors.joining(", ")));
+						setImageUrl(Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth)).get().getUrl());
+					}};
+				}
+
+			} while(true);
+
+		} catch (IOException | SpotifyWebApiException e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+
+		return null;
 	}
 	
 }
