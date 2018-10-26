@@ -40,7 +40,7 @@ public class Main extends Application {
 		BorderPane.setAlignment(headerLbl, Pos.TOP_CENTER);
 		BorderPane.setAlignment(navPanel, Pos.BOTTOM_CENTER);
 
-		Scene scene = new Scene(root,400,800);
+		Scene scene = new Scene(root,444,800);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
 		//Image imgPlay = new Image(getClass().getResourceAsStream("play.png"));
