@@ -10,10 +10,7 @@ import com.neovisionaries.i18n.CountryCode;
 import com.wrapper.spotify.SpotifyApi;
 import com.wrapper.spotify.exceptions.SpotifyWebApiException;
 import com.wrapper.spotify.model_objects.credentials.ClientCredentials;
-import com.wrapper.spotify.model_objects.specification.ArtistSimplified;
-import com.wrapper.spotify.model_objects.specification.Recommendations;
-import com.wrapper.spotify.model_objects.specification.Track;
-import com.wrapper.spotify.model_objects.specification.TrackSimplified;
+import com.wrapper.spotify.model_objects.specification.*;
 
 public class SpotifyAccessor {
 
@@ -63,11 +60,13 @@ public class SpotifyAccessor {
 
 				if(tOptional.isPresent()) {
 					Track t = spotifyApi.getTrack(tOptional.get().getId()).build().execute();
+					Artist a = spotifyApi.getArtist(t.getArtists()[0].getId()).build().execute();
 					return new TrackData(){{
 						setName(t.getName());
 						setPreviewUrl(t.getPreviewUrl());
 						setArtists(Arrays.stream(t.getArtists()).map(ArtistSimplified::getName).collect(Collectors.joining(", ")));
 						setImageUrl(Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth)).get().getUrl());
+						setGenre(a.getGenres()[0]);
 					}};
 				}
 

@@ -7,9 +7,7 @@ import application.controller.Controller;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -25,6 +23,7 @@ public class DiscoverController implements Controller {
 	HBox actionButtons;
 	HBox timeLabels;
 
+	Button genreB;
 	ImageView albumI;
 	ProgressBar pb;
 	Label songNameL;
@@ -49,7 +48,6 @@ public class DiscoverController implements Controller {
 		}
 	}
 
-
 	@Override
 	public Node buildScene() {
 
@@ -67,7 +65,7 @@ public class DiscoverController implements Controller {
 		topBar.setId("topBar");
 		Label discoverL = new Label("Discover");
 		discoverL.setId("discoverLabel");
-		Button genreB = new Button("Pop");
+		genreB = new Button(currentTrack.getGenre());
 		genreB.setId("genreButton");
 		topBar.getChildren().addAll(regionLeft, discoverL, regionCenter, genreB, regionRight);
 
@@ -128,6 +126,7 @@ public class DiscoverController implements Controller {
 			albumI.setImage(new Image(currentTrack.getImageUrl()));
 			songNameL.setText(currentTrack.getName());
 			artistL.setText(currentTrack.getArtists());
+			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException ex) {
 			System.out.println("Error");
@@ -183,6 +182,7 @@ public class DiscoverController implements Controller {
 			albumI.setImage(new Image(currentTrack.getImageUrl()));
 			songNameL.setText(currentTrack.getName());
 			artistL.setText(currentTrack.getArtists());
+			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException e) {
 			System.out.println("Error " + e);
