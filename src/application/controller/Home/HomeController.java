@@ -1,5 +1,6 @@
 package application.controller.Home;
 
+import application.FavoritesData;
 import application.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;

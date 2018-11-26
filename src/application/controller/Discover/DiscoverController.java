@@ -2,6 +2,7 @@ package application.controller.Discover;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
+import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
 import javafx.application.Platform;
@@ -16,6 +17,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.*;
 
 public class DiscoverController implements Controller {
 
@@ -38,12 +40,14 @@ public class DiscoverController implements Controller {
 	SpotifyAccessor spotify;
 	TrackData currentTrack;
 	LoopingAudioPlayer player;
+	FavoritesData favoritesData;
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 	public DiscoverController(FavoritesData fd) {
 		this.fd = fd;
 		try {
+			favoritesData = fd;
 			spotify = new SpotifyAccessor();
 			currentTrack = spotify.getNextRecommendation();
 		} catch (Exception e) {
@@ -140,7 +144,7 @@ public class DiscoverController implements Controller {
 		player.stop();
 
 		try {
-			
+			favoritesData.addToFavorites(currentTrack);
 			currentTrack = spotify.getNextRecommendation();
 			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
 			executorService.submit(player);

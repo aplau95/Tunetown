@@ -1,10 +1,12 @@
 package application.controller.Favorites;
 
 import application.controller.Controller;
+import application.FavoritesData;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+
 
 public class FavoritesController implements Controller {
 

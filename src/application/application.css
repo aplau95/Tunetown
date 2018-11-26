@@ -19,17 +19,17 @@
 }
 
 #iconHome {
-    -fx-image: url("home.png");
+    -fx-image: url("assets/home.png");
 }
 
 #iconDiscover {
-    -fx-image: url("discover.png");
+    -fx-image: url("assets/discover.png");
 }
 
 #iconPlaylists {
-    -fx-image: url("playlist.png");
+    -fx-image: url("assets/playlist.png");
 }
 
 #iconFavorites {
-    -fx-image: url("favorite.png");
+    -fx-image: url("assets/favorite.png");
 }

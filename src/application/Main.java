@@ -22,7 +22,6 @@ import java.util.List;
 
 public class Main extends Application {
 
-	FavoritesData fd = new FavoritesData;
 	BorderPane root = new BorderPane();
 	Controller currentController;
 	VBox currentTarget;
@@ -118,6 +117,8 @@ public class Main extends Application {
 		navPanel.setStyle("-fx-border-style: solid;");
 		navPanel.setStyle("-fx-border-color: rgb(67,67,67);");
 		navPanel.setStyle("-fx-border-width: 1;");
+
+		FavoritesData fd = new FavoritesData();
 
 		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME, fd);
 		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER, fd);
