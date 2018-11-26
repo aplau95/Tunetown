@@ -7,6 +7,7 @@ public class TrackData {
 	private String name;
 	private String previewUrl;
 	private String imageUrl;
+	private Integer duration;
 
 	public String getArtists() {
 		return artists;
@@ -24,6 +25,10 @@ public class TrackData {
 		return imageUrl;
 	}
 
+	public Integer getDuration() {
+		return duration;
+	}
+
 	public void setArtists(String artists) {
 		this.artists = artists;
 	}
@@ -38,5 +43,9 @@ public class TrackData {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public void setDuration(Integer duration) {
+		this.duration = duration;
 	}
 }
