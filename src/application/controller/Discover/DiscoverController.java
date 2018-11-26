@@ -45,10 +45,7 @@ public class DiscoverController implements Controller {
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 	public DiscoverController(FavoritesData fd) {
-<<<<<<< HEAD
 		this.fd = fd;
-=======
->>>>>>> moved icons
 		try {
 			favoritesData = fd;
 			spotify = new SpotifyAccessor();

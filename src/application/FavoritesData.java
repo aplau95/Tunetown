@@ -4,6 +4,9 @@ import java.util.*;
 public class FavoritesData {
 
     private Stack<TrackData> favoritesList = new Stack<TrackData>();
+
+    public FavoritesData(){
+    }
     
     public TrackData getNextSong(){
         return favoritesList.pop();

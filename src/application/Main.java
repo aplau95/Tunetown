@@ -22,12 +22,10 @@ import java.util.List;
 
 public class Main extends Application {
 
-	FavoritesData fd = new FavoritesData;
 	BorderPane root = new BorderPane();
 	Controller currentController;
 	VBox currentTarget;
 	List<VBox> targets;
-	FavoritesData favoritesData;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -120,17 +118,12 @@ public class Main extends Application {
 		navPanel.setStyle("-fx-border-color: rgb(67,67,67);");
 		navPanel.setStyle("-fx-border-width: 1;");
 
-<<<<<<< HEAD
+		FavoritesData fd = new FavoritesData();
+
 		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME, fd);
 		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER, fd);
 		Controller playlist = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS, fd);
 		Controller favorite = ControllerFactory.build(ControllerFactory.Type.FAVORITES, fd);
-=======
-		Controller home = new HomeController(favoritesData);
-		Controller discover = new DiscoverController(favoritesData);
-		Controller playlist = new PlaylistsController();
-		Controller favorite = new FavoritesController();
->>>>>>> moved icons
 
 		Node homeScene = home.buildScene();
 		Node discoverScene = discover.buildScene();
