@@ -1,8 +1,6 @@
 package application;
 
 import application.controller.*;
-import application.controller.Discover.DiscoverController;
-import application.controller.Home.HomeController;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -119,10 +117,10 @@ public class Main extends Application {
 		navPanel.setStyle("-fx-border-color: rgb(67,67,67);");
 		navPanel.setStyle("-fx-border-width: 1;");
 
-		Controller home = new HomeController();
-		Controller discover = new DiscoverController();
-		Controller playlist = new PlaylistsController();
-		Controller favorite = new FavoritesController();
+		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME);
+		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER);
+		Controller playlist = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS);
+		Controller favorite = ControllerFactory.build(ControllerFactory.Type.FAVORITES);
 
 		Node homeScene = home.buildScene();
 		Node discoverScene = discover.buildScene();
