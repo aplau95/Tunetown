@@ -19,6 +19,8 @@ import java.util.concurrent.Executors;
 
 public class DiscoverController implements Controller {
 
+	FavoritesData fd;
+
 	VBox root;
 	HBox actionButtons;
 	HBox timeLabels;
@@ -39,7 +41,8 @@ public class DiscoverController implements Controller {
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-	public DiscoverController() {
+	public DiscoverController(FavoritesData fd) {
+		this.fd = fd;
 		try {
 			spotify = new SpotifyAccessor();
 			currentTrack = spotify.getNextRecommendation();

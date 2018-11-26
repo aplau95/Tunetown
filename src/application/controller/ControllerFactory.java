@@ -4,6 +4,7 @@ import application.controller.Discover.DiscoverController;
 import application.controller.Favorites.FavoritesController;
 import application.controller.Home.HomeController;
 import application.controller.Playlists.PlaylistsController;
+import application.FavoritesData;
 
 public class ControllerFactory {
 	
@@ -14,19 +15,16 @@ public class ControllerFactory {
 		HOME;
 	}
 	
-	private ControllerFactory() {
-	}
-	
-	public static Controller build(ControllerFactory.Type t) {
+	public static Controller build(ControllerFactory.Type t, FavoritesData fd) {
 		switch (t) {
 		case DISCOVER:
-			return new DiscoverController();
+			return new DiscoverController(fd);
 		case FAVORITES:
-			return new FavoritesController();
+			return new FavoritesController(fd);
 		case PLAYLISTS:
-			return new PlaylistsController();
+			return new PlaylistsController(fd);
 		case HOME:
-			return new HomeController();
+			return new HomeController(fd);
 		}
 		return null;
 	}

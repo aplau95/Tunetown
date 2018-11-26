@@ -8,6 +8,12 @@ import javafx.scene.layout.VBox;
 
 public class FavoritesController implements Controller {
 
+	FavoritesData fd;
+
+	public FavoritesController(FavoritesData fd) {
+		this.fd = fd;
+	}
+
 	/**
 	 * Called once at app startup to build initial scene elements
 	 */

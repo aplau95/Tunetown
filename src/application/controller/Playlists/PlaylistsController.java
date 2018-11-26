@@ -8,6 +8,12 @@ import javafx.scene.layout.VBox;
 
 public class PlaylistsController implements Controller {
 
+	FavoritesData fd;
+
+	public PlaylistsController(FavoritesData fd) {
+		this.fd = fd;
+	}
+
 	/**
 	 * Called once at app startup to build initial scene elements
 	 */

@@ -1,6 +1,7 @@
 package application;
 
 import application.controller.*;
+import application.FavoritesData;
 import javafx.application.Application;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -21,6 +22,7 @@ import java.util.List;
 
 public class Main extends Application {
 
+	FavoritesData fd = new FavoritesData;
 	BorderPane root = new BorderPane();
 	Controller currentController;
 	VBox currentTarget;
@@ -117,10 +119,10 @@ public class Main extends Application {
 		navPanel.setStyle("-fx-border-color: rgb(67,67,67);");
 		navPanel.setStyle("-fx-border-width: 1;");
 
-		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME);
-		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER);
-		Controller playlist = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS);
-		Controller favorite = ControllerFactory.build(ControllerFactory.Type.FAVORITES);
+		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME, fd);
+		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER, fd);
+		Controller playlist = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS, fd);
+		Controller favorite = ControllerFactory.build(ControllerFactory.Type.FAVORITES, fd);
 
 		Node homeScene = home.buildScene();
 		Node discoverScene = discover.buildScene();
