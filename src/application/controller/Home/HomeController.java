@@ -1,5 +1,6 @@
-package application.Controller;
+package application.controller.Home;
 
+import application.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

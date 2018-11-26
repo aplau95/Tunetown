@@ -1,9 +1,10 @@
-package application.Controller;
+package application.controller.Discover;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
 import application.TrackData;
-import javafx.event.ActionEvent;
+import application.controller.Controller;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -11,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -21,12 +22,17 @@ import java.util.concurrent.Executors;
 public class DiscoverController implements Controller {
 
 	VBox root;
+	HBox actionButtons;
+	HBox timeLabels;
 
 	ImageView albumI;
 	ProgressBar pb;
 	Label songNameL;
 	Label artistL;
-	Button nextB;
+	Label timePassedL;
+	Label timeLeftL;
+	Button dislikeB;
+	Button likeB;
 
 	SpotifyAccessor spotify;
 	TrackData currentTrack;
@@ -48,26 +54,69 @@ public class DiscoverController implements Controller {
 	public Node buildScene() {
 
 		root = new VBox();
+		root.setId("root");
+
+		Region regionLeft = new Region();
+		regionLeft.setPrefWidth(40);
+		Region regionCenter = new Region();
+		HBox.setHgrow(regionCenter, Priority.ALWAYS);
+		Region regionRight = new Region();
+		regionRight.setPrefWidth(40);
+
+		HBox topBar = new HBox();
+		topBar.setId("topBar");
+		Label discoverL = new Label("Discover");
+		discoverL.setId("discoverLabel");
+		Button genreB = new Button("Pop");
+		genreB.setId("genreButton");
+		topBar.getChildren().addAll(regionLeft, discoverL, regionCenter, genreB, regionRight);
 
 		albumI = new ImageView();
-		albumI.setFitHeight(300);
+		albumI.setFitWidth(300);
 		albumI.setPreserveRatio(true);
 
 		albumI.setImage(new Image(currentTrack.getImageUrl()));
 		pb = new ProgressBar(0.0);
+		pb.setPrefWidth(300);
+		pb.setId("progressBar");
+
+		timePassedL = new Label("0:00");
+		timeLeftL = new Label("-30:00");
+		Region region1 = new Region();
+		HBox.setHgrow(region1, Priority.ALWAYS);
+
+		timeLabels = new HBox();
+		timeLabels.setId("timeLabels");
+		timeLabels.getChildren().addAll(timePassedL, region1, timeLeftL);
+		timeLabels.setMaxWidth(300);
+
 		songNameL = new Label(currentTrack.getName());
+		songNameL.setId("songName");
 		artistL = new Label(currentTrack.getArtists());
+		artistL.setId("artistName");
 
-		nextB = new Button("Next");
-		nextB.setOnAction(this::onNext);
+		actionButtons = new HBox();
+		actionButtons.setId("actionButtons");
 
-		root.getChildren().addAll(albumI, songNameL, pb, artistL, nextB);
-		root.setAlignment(Pos.CENTER);
+		dislikeB = new Button();
+		dislikeB.setId("dislike");
+		likeB = new Button();
+		likeB.setId("like");
+
+		dislikeB.setOnAction(e -> onNext());
+		likeB.setOnAction(e -> onNext());
+
+		actionButtons.getChildren().addAll(dislikeB, likeB);
+		actionButtons.setAlignment(Pos.CENTER);
+
+		root.getChildren().addAll(topBar, albumI, pb, timeLabels, songNameL, artistL, actionButtons);
+		root.setAlignment(Pos.TOP_CENTER);
+		root.getStylesheets().add(getClass().getResource("discover.css").toExternalForm());
 
 		return root;
 	}
 
-	public void onNext(ActionEvent e) {
+	public void onNext() {
 		player.stop();
 
 		try {
@@ -86,14 +135,20 @@ public class DiscoverController implements Controller {
 	}
 
 	public Void onTime(Double time) {
-		pb.setProgress(time/30.0);
-
+		Platform.runLater(() -> {
+			pb.setProgress(time/30.0);
+			timePassedL.setText("0:" + String.format("%02d", time.intValue()));
+			timeLeftL.setText("-0:" + String.format("%02d", 30-time.intValue()));
+		});
 		return null;
 	}
 
+	/**
+	 * Called before the page is shown
+	 */
 	@Override
 	public void beforeShow() {
-
+		//Implement if necessary
 	}
 
 	/**
@@ -112,7 +167,7 @@ public class DiscoverController implements Controller {
 			artistL.setText(currentTrack.getArtists());
 
 		} catch(MalformedURLException e) {
-
+			System.out.println("Error " + e);
 		}
 	}
 
@@ -133,7 +188,7 @@ public class DiscoverController implements Controller {
 	 */
 	@Override
 	public void afterHide() {
-
+		//Implement if necessary
 	}
 
 }
