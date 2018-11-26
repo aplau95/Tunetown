@@ -8,6 +8,7 @@ public class TrackData {
 	private String previewUrl;
 	private String imageUrl;
 	private Integer duration;
+	private String genre;
 
 	public String getArtists() {
 		return artists;
@@ -29,6 +30,10 @@ public class TrackData {
 		return duration;
 	}
 
+	public String getGenre() {
+		return genre;
+	}
+
 	public void setArtists(String artists) {
 		this.artists = artists;
 	}
@@ -47,5 +52,9 @@ public class TrackData {
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 }
