@@ -103,8 +103,8 @@ public class DiscoverController implements Controller {
 		likeB = new Button();
 		likeB.setId("like");
 
-		dislikeB.setOnAction(e -> onNext());
-		likeB.setOnAction(e -> onNext());
+		dislikeB.setOnAction(e -> onDislike());
+		likeB.setOnAction(e -> onLike());
 
 		actionButtons.getChildren().addAll(dislikeB, likeB);
 		actionButtons.setAlignment(Pos.CENTER);
@@ -116,11 +116,29 @@ public class DiscoverController implements Controller {
 		return root;
 	}
 
-	public void onNext() {
+	public void onDislike() {
 		player.stop();
 
 		try {
 
+			currentTrack = spotify.getNextRecommendation();
+			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
+			executorService.submit(player);
+
+			albumI.setImage(new Image(currentTrack.getImageUrl()));
+			songNameL.setText(currentTrack.getName());
+			artistL.setText(currentTrack.getArtists());
+
+		} catch(MalformedURLException ex) {
+			System.out.println("Error");
+		}
+	}
+
+	public void onLike() {
+		player.stop();
+
+		try {
+			
 			currentTrack = spotify.getNextRecommendation();
 			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
 			executorService.submit(player);
