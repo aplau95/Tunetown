@@ -1,1 +1,35 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+
+#navPanel {
+    -fx-padding: 10;
+    /*-fx-border-style: solid;
+    -fx-border-color: rgb(67,67,67) transparent transparent transparent;
+    -fx-border-width: 1;*/
+}
+
+#dim {
+    -fx-opacity: 0.5;
+}
+
+#labelHome, #labelDiscover, #labelPlaylists, #labelFavorites {
+    -fx-text-fill: #F2F2F2;
+    -fx-font-size: 10;
+    -fx-font-family: "Verdana";
+    -fx-padding: 8 0 0 0;
+}
+
+#iconHome {
+    -fx-image: url("home.png");
+}
+
+#iconDiscover {
+    -fx-image: url("discover.png");
+}
+
+#iconPlaylists {
+    -fx-image: url("playlist.png");
+}
+
+#iconFavorites {
+    -fx-image: url("favorite.png");
+}

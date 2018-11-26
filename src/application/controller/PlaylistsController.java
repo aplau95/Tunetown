@@ -1,36 +1,60 @@
-package application.Controller;
+package application.controller;
 
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 
-public interface Controller {
+public class PlaylistsController implements Controller {
 
 	/**
 	 * Called once at app startup to build initial scene elements
 	 */
-	public Node buildScene();
+	@Override
+	public Node buildScene() {
+		Label lbl = new Label("PLAYLISTS");
+
+		VBox root = new VBox();
+
+		root.getChildren().add(lbl);
+		root.setAlignment(Pos.CENTER);
+
+		return root;
+	}
 
 	/**
 	 * Called before the page is shown. Use this to prepare the page before its shown
 	 * Don't do anything that will block the main UI thread
 	 * or else user will see a delay switching to the next tab
 	 */
-	public void beforeShow();
+	@Override
+	public void beforeShow() {
+
+	}
 
 	/**
 	 * Called after the page is shown. It's your time to shine!
 	 */
-	public void afterShow();
+	@Override
+	public void afterShow() {
+
+	}
 
 	/**
 	 * Called before the page is hidden. Use this to cleanup.
 	 * Don't do anything that will block the main UI thread
 	 * or else user will see a delay switching to the next tab
 	 */
-	public void beforeHide();
+	@Override
+	public void beforeHide() {
+
+	}
 
 	/**
 	 * Called after page is hidden. Not much to do here probably.
 	 */
-	public void afterHide();
+	@Override
+	public void afterHide() {
 
+	}
 }

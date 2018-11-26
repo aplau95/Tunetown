@@ -3,10 +3,7 @@ package application;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.concurrent.Callable;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -33,8 +30,8 @@ public class LoopingAudioPlayer implements Runnable {
 		AudioInputStream din = null;
 		SourceDataLine line = null;
 		
-	    try {
-			AudioInputStream in = AudioSystem.getAudioInputStream(new BufferedInputStream(streamUrl.openStream()));
+	    try(AudioInputStream in = AudioSystem.getAudioInputStream(new BufferedInputStream(streamUrl.openStream()))) {
+
 	        AudioFormat baseFormat = in.getFormat();
 	        AudioFormat decodedFormat = new AudioFormat(
 	                AudioFormat.Encoding.PCM_SIGNED,
@@ -71,7 +68,9 @@ public class LoopingAudioPlayer implements Runnable {
 		            long framesRead = totalBytes / frameSize;
 		            double elapsedSeconds = ((double) framesRead / (double) totalFrames) * totalSeconds;
 
-		            updateTime.apply(elapsedSeconds);
+		            if(!startedStop) {
+						updateTime.apply(elapsedSeconds);
+					}
 		            
 		            if(stop && !startedStop) {
 		            	if(elapsedSeconds < 29) {
