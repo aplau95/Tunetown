@@ -61,19 +61,15 @@ public class PlaylistsController implements Controller {
 		root = new VBox();
 		root.setId("root");
 
-		Region regionLeft = new Region();
-		regionLeft.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
-		Region regionRight = new Region();
-		regionRight.setPrefWidth(40);
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
 		Label playlistsL = new Label("Playlists");
 		playlistsL.setId("playlistsLabel");
 	
-		topBar.getChildren().addAll(regionLeft, playlistsL, regionCenter, regionRight);
+		topBar.getChildren().addAll(playlistsL, regionCenter);
 
 		// albumI = new ImageView();
 		// albumI.setFitWidth(300);

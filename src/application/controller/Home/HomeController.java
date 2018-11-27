@@ -2,45 +2,33 @@ package application.controller.Home;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
+import application.guis.TileFragment;
+import application.guis.TrackFragment;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.*;
 
 public class HomeController implements Controller {
 
 	FavoritesData fd;
 
+	TrackFragment track1;
+	TrackFragment track2;
+	TrackFragment track3;
+
+	Label numTracks;
+	HBox topBar;
+	HBox tileList;
 	VBox root;
-	// HBox actionButtons;
-	// HBox timeLabels;
 
 	Button settingsB;
-	// ImageView albumI;
-	// ProgressBar pb;
-	// Label songNameL;
-	// Label artistL;
-	// Label timePassedL;
-	// Label timeLeftL;
-	// Button dislikeB;
-	// Button likeB;
-
-	// SpotifyAccessor spotify;
-	// TrackData currentTrack;
-	// LoopingAudioPlayer player;
-	// FavoritesData favoritesData;
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -59,68 +47,61 @@ public class HomeController implements Controller {
 		root = new VBox();
 		root.setId("root");
 
-		Region regionLeft = new Region();
-		regionLeft.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
-		Region regionRight = new Region();
-		regionRight.setPrefWidth(40);
 
-		HBox topBar = new HBox();
+		topBar = new HBox();
 		topBar.setId("topBar");
 		Label tuneTownL = new Label("TuneTown");
-		tuneTownL.setId("tuneTownLabel");
+		tuneTownL.setId("headerLabel");
 		settingsB = new Button();
 		settingsB.setId("settingsButton");
-		topBar.getChildren().addAll(regionLeft, tuneTownL, regionCenter, settingsB, regionRight);
+		topBar.getChildren().addAll(tuneTownL, regionCenter, settingsB);
 
-		// albumI = new ImageView();
-		// albumI.setFitWidth(300);
-		// albumI.setPreserveRatio(true);
+		String name = "Dad?";
+		HBox greetingBox = new HBox();
+		greetingBox.setId("greetingBox");
+		Region greetingRegionFiller = new Region();
+		HBox.setHgrow(greetingRegionFiller, Priority.ALWAYS);
+		Label greetingLabel = new Label("Hello, " + name);
+		greetingLabel.setId("headerLabel");
+		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
-		// albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// pb = new ProgressBar(0.0);
-		// pb.setPrefWidth(300);
-		// pb.setId("progressBar");
+		// tile instances
+		TileFragment b1 = new TileFragment("hello", "world");
+		TileFragment b2 = new TileFragment("nihao", "world");
+		TileFragment b3 = new TileFragment("hola", "world");
+		b1.setId("tile1");
+		b2.setId("tile1");
+		b3.setId("tile1");
 
-		// timePassedL = new Label("0:00");
-		// timeLeftL = new Label("-30:00");
-		// Region region1 = new Region();
-		// HBox.setHgrow(region1, Priority.ALWAYS);
+		tileList = new HBox();
+		tileList.setId("tileList");
+		tileList.getChildren().addAll(b1.getFragment(), b2.getFragment(), b3.getFragment());
+		
+		//used for debugging
+		numTracks = new Label(fd.numberOfFavorites().toString());
+		numTracks.setId("tuneTownLabel");
+		
 
-		// timeLabels = new HBox();
-		// timeLabels.setId("timeLabels");
-		// timeLabels.getChildren().addAll(timePassedL, region1, timeLeftL);
-		// timeLabels.setMaxWidth(300);
+		if (fd.numberOfFavorites() >= 3){
+			track1 = new TrackFragment(fd.getAt(0));
+			track2 = new TrackFragment(fd.getAt(1));
+			track3 = new TrackFragment(fd.getAt(2));
 
-		// songNameL = new Label(currentTrack.getName());
-		// songNameL.setId("songName");
-		// artistL = new Label(currentTrack.getArtists());
-		// artistL.setId("artistName");
-
-		// actionButtons = new HBox();
-		// actionButtons.setId("actionButtons");
-
-		// dislikeB = new Button();
-		// dislikeB.setId("dislike");
-		// likeB = new Button();
-		// likeB.setId("like");
-
-		// dislikeB.setOnAction(e -> onDislike());
-		// likeB.setOnAction(e -> onLike());
-
-		// actionButtons.getChildren().addAll(dislikeB, likeB);
-		// actionButtons.setAlignment(Pos.CENTER);
-
-		root.getChildren().addAll(
-			topBar
-			// albumI, 
-			// pb, 
-			// timeLabels, 
-			// songNameL, 
-			// artistL, 
-			// actionButtons
+			root.getChildren().addAll(
+			topBar,
+			track1
 			);
+		} else {
+			root.getChildren().addAll(
+			topBar,
+			greetingBox,
+			tileList,
+			numTracks
+			);
+		}
+		
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("home.css").toExternalForm());
 
@@ -141,20 +122,7 @@ public class HomeController implements Controller {
 	 */
 	@Override
 	public void afterShow() {
-
-		// try {
-
-		// 	player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
-		// 	executorService.submit(player);
-
-		// 	albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// 	songNameL.setText(currentTrack.getName());
-		// 	artistL.setText(currentTrack.getArtists());
-		// 	genreB.setText(currentTrack.getGenre());
-
-		// } catch(MalformedURLException e) {
-		// 	System.out.println("Error " + e);
-		// }
+			numTracks.setText(fd.numberOfFavorites().toString());
 	}
 
 	/**

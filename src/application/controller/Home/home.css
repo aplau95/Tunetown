@@ -9,15 +9,20 @@
     -fx-text-fill: #F2F2F2;
 }
 
-#tuneTownLabel {
+#headerLabel {
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
     -fx-font-size: 22;
 }
 
 #topBar {
-    -fx-padding: 30 0 80 0;
+    -fx-padding: 30 40 20 40;
 }
+
+#greetingBox {
+    -fx-padding: 30 40 20 40;
+}
+
 
 #settingsButton {
     -fx-graphic: url("../../assets/settings.png");
@@ -26,4 +31,12 @@
     -fx-background-radius: 0;
     -fx-background-color: transparent;
     -fx-max-width: 15px;
+}
+
+#tileList {
+    -fx-padding: 10 40 10 40;
+}
+
+#tile1 {
+    -fx-background-color: linear-gradient(#FF512F, #DD2476);
 }

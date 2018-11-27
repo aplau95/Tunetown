@@ -20,4 +20,8 @@ public class FavoritesData {
         favoritesList.push(track);
     }
 
+    public Integer numberOfFavorites(){
+        return favoritesList.size();
+    }
+
 }
