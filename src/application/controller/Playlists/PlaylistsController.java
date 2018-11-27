@@ -1,43 +1,140 @@
 package application.controller.Playlists;
 
-import application.controller.Controller;
+import application.LoopingAudioPlayer;
+import application.SpotifyAccessor;
 import application.FavoritesData;
+import application.TrackData;
+import application.controller.Controller;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.*;
+
+
 
 public class PlaylistsController implements Controller {
 
 	FavoritesData fd;
 
+	VBox root;
+	// HBox actionButtons;
+	// HBox timeLabels;
+
+	// ImageView albumI;
+	// ProgressBar pb;
+	// Label songNameL;
+	// Label artistL;
+	// Label timePassedL;
+	// Label timeLeftL;
+	// Button dislikeB;
+	// Button likeB;
+
+	// SpotifyAccessor spotify;
+	// TrackData currentTrack;
+	// LoopingAudioPlayer player;
+	// FavoritesData favoritesData;
+
+	ExecutorService executorService = Executors.newFixedThreadPool(2);
+
+
 	public PlaylistsController(FavoritesData fd) {
 		this.fd = fd;
+		try {
+			this.fd = fd;
+		} catch (Exception e) {
+			System.out.println("Failed to connect to spotify");
+		}
 	}
 
-	/**
-	 * Called once at app startup to build initial scene elements
-	 */
 	@Override
 	public Node buildScene() {
-		Label lbl = new Label("PLAYLISTS");
 
-		VBox root = new VBox();
+		root = new VBox();
+		root.setId("root");
 
-		root.getChildren().add(lbl);
-		root.setAlignment(Pos.CENTER);
+		Region regionLeft = new Region();
+		regionLeft.setPrefWidth(40);
+		Region regionCenter = new Region();
+		HBox.setHgrow(regionCenter, Priority.ALWAYS);
+		Region regionRight = new Region();
+		regionRight.setPrefWidth(40);
+
+		HBox topBar = new HBox();
+		topBar.setId("topBar");
+		Label playlistsL = new Label("Playlists");
+		playlistsL.setId("playlistsLabel");
+	
+		topBar.getChildren().addAll(regionLeft, playlistsL, regionCenter, regionRight);
+
+		// albumI = new ImageView();
+		// albumI.setFitWidth(300);
+		// albumI.setPreserveRatio(true);
+
+		// albumI.setImage(new Image(currentTrack.getImageUrl()));
+		// pb = new ProgressBar(0.0);
+		// pb.setPrefWidth(300);
+		// pb.setId("progressBar");
+
+		// timePassedL = new Label("0:00");
+		// timeLeftL = new Label("-30:00");
+		// Region region1 = new Region();
+		// HBox.setHgrow(region1, Priority.ALWAYS);
+
+		// timeLabels = new HBox();
+		// timeLabels.setId("timeLabels");
+		// timeLabels.getChildren().addAll(timePassedL, region1, timeLeftL);
+		// timeLabels.setMaxWidth(300);
+
+		// songNameL = new Label(currentTrack.getName());
+		// songNameL.setId("songName");
+		// artistL = new Label(currentTrack.getArtists());
+		// artistL.setId("artistName");
+
+		// actionButtons = new HBox();
+		// actionButtons.setId("actionButtons");
+
+		// dislikeB = new Button();
+		// dislikeB.setId("dislike");
+		// likeB = new Button();
+		// likeB.setId("like");
+
+		// dislikeB.setOnAction(e -> onDislike());
+		// likeB.setOnAction(e -> onLike());
+
+		// actionButtons.getChildren().addAll(dislikeB, likeB);
+		// actionButtons.setAlignment(Pos.CENTER);
+
+		root.getChildren().addAll(
+			topBar
+			// albumI, 
+			// pb, 
+			// timeLabels, 
+			// songNameL, 
+			// artistL, 
+			// actionButtons
+			);
+		root.setAlignment(Pos.TOP_CENTER);
+		root.getStylesheets().add(getClass().getResource("playlists.css").toExternalForm());
 
 		return root;
 	}
 
+	
 	/**
-	 * Called before the page is shown. Use this to prepare the page before its shown
-	 * Don't do anything that will block the main UI thread
-	 * or else user will see a delay switching to the next tab
+	 * Called before the page is shown
 	 */
 	@Override
 	public void beforeShow() {
-
+		//Implement if necessary
 	}
 
 	/**
@@ -46,6 +143,19 @@ public class PlaylistsController implements Controller {
 	@Override
 	public void afterShow() {
 
+		// try {
+
+		// 	player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
+		// 	executorService.submit(player);
+
+		// 	albumI.setImage(new Image(currentTrack.getImageUrl()));
+		// 	songNameL.setText(currentTrack.getName());
+		// 	artistL.setText(currentTrack.getArtists());
+		// 	genreB.setText(currentTrack.getGenre());
+
+		// } catch(MalformedURLException e) {
+		// 	System.out.println("Error " + e);
+		// }
 	}
 
 	/**
@@ -55,7 +165,6 @@ public class PlaylistsController implements Controller {
 	 */
 	@Override
 	public void beforeHide() {
-
 	}
 
 	/**
@@ -63,6 +172,7 @@ public class PlaylistsController implements Controller {
 	 */
 	@Override
 	public void afterHide() {
-
+		//Implement if necessary
 	}
+
 }
