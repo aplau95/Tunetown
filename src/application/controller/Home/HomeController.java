@@ -3,7 +3,7 @@ package application.controller.Home;
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
 import application.guis.TileFragment;
-import application.guis.TrackFragment;
+// import application.guis.TrackFragment;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
@@ -19,9 +19,9 @@ public class HomeController implements Controller {
 
 	FavoritesData fd;
 
-	TrackFragment track1;
-	TrackFragment track2;
-	TrackFragment track3;
+	// TrackFragment track1;
+	// TrackFragment track2;
+	// TrackFragment track3;
 
 	Label numTracks;
 	HBox topBar;
@@ -85,13 +85,12 @@ public class HomeController implements Controller {
 		
 
 		if (fd.numberOfFavorites() >= 3){
-			track1 = new TrackFragment(fd.getAt(0));
-			track2 = new TrackFragment(fd.getAt(1));
-			track3 = new TrackFragment(fd.getAt(2));
+			// track1 = new TrackFragment(fd.getAt(0));
+			// track2 = new TrackFragment(fd.getAt(1));
+			// track3 = new TrackFragment(fd.getAt(2));
 
 			root.getChildren().addAll(
-			topBar,
-			track1
+			topBar
 			);
 		} else {
 			root.getChildren().addAll(
