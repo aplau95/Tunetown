@@ -11,6 +11,10 @@ public class FavoritesData {
     public TrackData getNextSong(){
         return favoritesList.pop();
     }
+
+    public TrackData getAt(Integer index){
+        return favoritesList.get(index);
+    }
     
     public void addToFavorites(TrackData track){
         favoritesList.push(track);
