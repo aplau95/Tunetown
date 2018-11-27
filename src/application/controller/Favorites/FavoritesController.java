@@ -61,12 +61,8 @@ public class FavoritesController implements Controller {
 		root = new VBox();
 		root.setId("root");
 
-		Region regionLeft = new Region();
-		regionLeft.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
-		Region regionRight = new Region();
-		regionRight.setPrefWidth(40);
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
@@ -74,7 +70,7 @@ public class FavoritesController implements Controller {
 		favoritesL.setId("favoritesLabel");
 		Button trackCountB = new Button("51 songs");
 		trackCountB.setId("trackCountButton");
-		topBar.getChildren().addAll(regionLeft, favoritesL, regionCenter, trackCountB, regionRight);
+		topBar.getChildren().addAll(favoritesL, regionCenter, trackCountB);
 
 		// albumI = new ImageView();
 		// albumI.setFitWidth(300);
@@ -116,12 +112,6 @@ public class FavoritesController implements Controller {
 
 		root.getChildren().addAll(
 			topBar
-			// albumI, 
-			// pb, 
-			// timeLabels, 
-			// songNameL, 
-			// artistL, 
-			// actionButtons
 			);
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("favorites.css").toExternalForm());
