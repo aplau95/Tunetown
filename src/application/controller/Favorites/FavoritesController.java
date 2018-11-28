@@ -8,43 +8,22 @@ import application.controller.Controller;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.*;
-
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import org.controlsfx.control.textfield.CustomTextField;
 
 
 public class FavoritesController implements Controller {
 
 	FavoritesData fd;
-
-	VBox root;
-	// HBox actionButtons;
-	// HBox timeLabels;
-
-	// ImageView albumI;
-	// ProgressBar pb;
-	// Label songNameL;
-	// Label artistL;
-	// Label timePassedL;
-	// Label timeLeftL;
-	// Button dislikeB;
-	// Button likeB;
-
-	// SpotifyAccessor spotify;
-	// TrackData currentTrack;
-	// LoopingAudioPlayer player;
-	// FavoritesData favoritesData;
-
-	ExecutorService executorService = Executors.newFixedThreadPool(2);
-
+	Button numLikedB;
 
 	public FavoritesController(FavoritesData fd) {
 		this.fd = fd;
@@ -58,61 +37,29 @@ public class FavoritesController implements Controller {
 	@Override
 	public Node buildScene() {
 
-		root = new VBox();
+		VBox root = new VBox();
 		root.setId("root");
 
+		Region regionLeft = new Region();
+		regionLeft.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
+		Region regionRight = new Region();
+		regionRight.setPrefWidth(40);
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
-		Label favoritesL = new Label("TuneTown");
-		favoritesL.setId("favoritesLabel");
-		Button trackCountB = new Button("51 songs");
-		trackCountB.setId("trackCountButton");
-		topBar.getChildren().addAll(favoritesL, regionCenter, trackCountB);
+		Label discoverL = new Label("Favorites");
+		discoverL.setId("favoritesLabel");
+		numLikedB = new Button("53 Songs");
+		numLikedB.setId("numLikedButton");
+		topBar.getChildren().addAll(regionLeft, discoverL, regionCenter, numLikedB, regionRight);
 
-		// albumI = new ImageView();
-		// albumI.setFitWidth(300);
-		// albumI.setPreserveRatio(true);
+		CustomTextField searchBar = new CustomTextField();
+		searchBar.setLeft(new ImageView() {{setId("searchImage");}});
+		searchBar.setId("searchBar");
 
-		// albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// pb = new ProgressBar(0.0);
-		// pb.setPrefWidth(300);
-		// pb.setId("progressBar");
-
-		// timePassedL = new Label("0:00");
-		// timeLeftL = new Label("-30:00");
-		// Region region1 = new Region();
-		// HBox.setHgrow(region1, Priority.ALWAYS);
-
-		// timeLabels = new HBox();
-		// timeLabels.setId("timeLabels");
-		// timeLabels.getChildren().addAll(timePassedL, region1, timeLeftL);
-		// timeLabels.setMaxWidth(300);
-
-		// songNameL = new Label(currentTrack.getName());
-		// songNameL.setId("songName");
-		// artistL = new Label(currentTrack.getArtists());
-		// artistL.setId("artistName");
-
-		// actionButtons = new HBox();
-		// actionButtons.setId("actionButtons");
-
-		// dislikeB = new Button();
-		// dislikeB.setId("dislike");
-		// likeB = new Button();
-		// likeB.setId("like");
-
-		// dislikeB.setOnAction(e -> onDislike());
-		// likeB.setOnAction(e -> onLike());
-
-		// actionButtons.getChildren().addAll(dislikeB, likeB);
-		// actionButtons.setAlignment(Pos.CENTER);
-
-		root.getChildren().addAll(
-			topBar
-			);
+		root.getChildren().addAll(topBar, searchBar);
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("favorites.css").toExternalForm());
 
