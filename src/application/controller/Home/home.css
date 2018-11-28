@@ -1,7 +1,6 @@
 /* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
 
 #root {
-    /*-fx-background-color: rgb(32,32,32);*/
     -fx-background-color: linear-gradient(#232329 0%, #232329 95%, #000000 100%);
 }
 
@@ -39,4 +38,31 @@
 
 #tile1 {
     -fx-background-color: linear-gradient(#FF512F, #DD2476);
+    -fx-text-fill: #F2F2F2;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+}
+#tile2 {
+    -fx-background-color: linear-gradient(#FF512F, #DD2476);
+    -fx-text-fill: #F2F2F2;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+}
+#tile3 {
+    -fx-background-color: linear-gradient(#FF512F, #DD2476);
+    -fx-text-fill: #F2F2F2;
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+}
+
+#tileLabel {
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 20;
+}
+
+#tileSublabel {
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 6;
 }

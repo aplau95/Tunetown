@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
+import java.awt.Dimension;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -68,16 +69,40 @@ public class HomeController implements Controller {
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
-		TileFragment b1 = new TileFragment("hello", "world");
-		TileFragment b2 = new TileFragment("nihao", "world");
-		TileFragment b3 = new TileFragment("hola", "world");
+		Button b1 = new Button("");
+		VBox b1TextBox= new VBox();
+		Label b1Label = new Label("POP");
+		Label b1Sublabel = new Label("Most Liked");
+		Label b1Sublabel2 = new Label("Genre");
+		b1Label.setId("tileLabel");
+		b1Sublabel.setId("tileSublabel");
+		b1Sublabel2.setId("tileSublabel");
+		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
+		b1.setGraphic(b1TextBox);
+		
+		
+		Button b2 = new Button("53 Songs");
+		VBox b2TextBox= new VBox();
+		b2TextBox.getChildren().addAll(new Label("53"), new Label("Liked"), new Label("Songs"));
+		b2.setGraphic(b2TextBox);
+		
+		Button b3 = new Button("Another one");
+		VBox b3TextBox= new VBox();
+		b3TextBox.getChildren().addAll(new Label("Pop"), new Label("Songs"));
+		b3.setGraphic(b3TextBox);
+
+		double dim = 100;
+		b1.setPrefSize(dim, dim);
+		b2.setPrefSize(dim, dim);
+		b3.setPrefSize(dim, dim);
 		b1.setId("tile1");
-		b2.setId("tile1");
-		b3.setId("tile1");
+		b2.setId("tile2");
+		b3.setId("tile3");
 
 		tileList = new HBox();
 		tileList.setId("tileList");
-		tileList.getChildren().addAll(b1.getFragment(), b2.getFragment(), b3.getFragment());
+		tileList.getChildren().addAll(b1, b2, b3);
+		tileList.setSpacing(10.0);
 		
 		//used for debugging
 		numTracks = new Label(fd.numberOfFavorites().toString());
