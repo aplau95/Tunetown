@@ -69,44 +69,10 @@ public class HomeController implements Controller {
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
-		Button b1 = new Button("");
-		VBox b1TextBox= new VBox();
-		Label b1Label = new Label("Pop");
-		Label b1Sublabel = new Label("Most Liked");
-		Label b1Sublabel2 = new Label("Genre");
-		b1Label.setId("tileLabel");
-		b1Sublabel.setId("tileSublabel");
-		b1Sublabel2.setId("tileSublabel");
-		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
-		b1.setGraphic(b1TextBox);
-		
-		
-		Button b2 = new Button("53 Songs");
-		VBox b2TextBox= new VBox();
-		Label b2Label = new Label("51");
-		Label b2Sublabel = new Label("New Songs");
-		Label b2Sublabel2 = new Label("Discovered");
-		b2Label.setId("tileLabel");
-		b2Sublabel.setId("tileSublabel");
-		b2Sublabel2.setId("tileSublabel");
-		b2TextBox.getChildren().addAll(b2Label, b2Sublabel, b2Sublabel2);
-		b2.setGraphic(b2TextBox);
-		
-		Button b3 = new Button("Another one");
-		VBox b3TextBox= new VBox();
-		Label b3Label = new Label("2");
-		Label b3Sublabel = new Label("Hours of");
-		Label b3Sublabel2 = new Label("New Music");
-		b3Label.setId("tileLabel");
-		b2Sublabel.setId("tileSublabel");
-		b3Sublabel2.setId("tileSublabel");
-		b3TextBox.getChildren().addAll(b3Label, b3Sublabel, b3Sublabel2);
-		b3.setGraphic(b3TextBox);
+		Button b1 = CreateTile("Pop", "Most Liked", "Genre");			
+		Button b2 = CreateTile("51", "New Songs", "Discovered"); 		
+		Button b3 = CreateTile("2", "Hours of", "New Music"); 
 
-		double dim = 100;
-		b1.setPrefSize(dim, dim);
-		b2.setPrefSize(dim, dim);
-		b3.setPrefSize(dim, dim);
 		b1.setId("tile1");
 		b2.setId("tile2");
 		b3.setId("tile3");
@@ -116,9 +82,28 @@ public class HomeController implements Controller {
 		tileList.getChildren().addAll(b1, b2, b3);
 		tileList.setSpacing(10.0);
 		
-		//used for debugging
-		numTracks = new Label(fd.numberOfFavorites().toString());
-		numTracks.setId("tuneTownLabel");
+		// Recently favorited list
+		VBox recentfaveBox = new VBox();
+		recentfaveBox.setId("greetingBox");
+		//Region recentfaveRegionFiller = new Region();		// what're these used for?
+		//HBox.setHgrow(recentfaveRegionFiller, Priority.ALWAYS);
+		Label recentfaveTitle = new Label("Recently Favorited");
+		recentfaveTitle.setId("headerLabel");
+		
+		// song tiles
+		VBox recentfaveList = new VBox();
+		recentfaveList.getChildren().addAll(
+				CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
+				CreateRecentFaveTile("Controlla", "Views", "Drake"), 
+				CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
+				);
+		recentfaveList.setSpacing(10.0);
+		recentfaveBox.getChildren().addAll(recentfaveTitle, recentfaveList);
+		recentfaveBox.setSpacing(20.0);
+		
+		// not doing anything with this rn
+		//numTracks = new Label(fd.numberOfFavorites().toString());
+		//numTracks.setId("tuneTownLabel");
 		
 
 		if (fd.numberOfFavorites() >= 3){
@@ -134,7 +119,7 @@ public class HomeController implements Controller {
 			topBar,
 			greetingBox,
 			tileList,
-			numTracks
+			recentfaveBox
 			);
 		}
 		
@@ -144,6 +129,38 @@ public class HomeController implements Controller {
 		return root;
 	}
 
+	private Button CreateTile(String label, String sublabel, String sublabel2) {
+		Button b1 = new Button();
+		VBox b1TextBox= new VBox();
+		Label b1Label = new Label(label);
+		Label b1Sublabel = new Label(sublabel);
+		Label b1Sublabel2 = new Label(sublabel2);
+		b1Label.setId("tileLabel");
+		b1Sublabel.setId("tileSublabel");
+		b1Sublabel2.setId("tileSublabel");
+		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
+		b1.setGraphic(b1TextBox);
+		b1.setPrefSize(100, 100);
+		
+		return b1;
+	}
+	
+	private Button CreateRecentFaveTile(String title, String album, String artist) {
+		Button btn = new Button();
+		HBox btnBox = new HBox();
+		VBox details = new VBox();
+		Label lbl = new Label(title);
+		Label subLbl = new Label(album + " - " + artist);
+		lbl.setId("recentFaveLabel");
+		subLbl.setId("recentFaveSubLabel");
+		details.getChildren().addAll(lbl, subLbl);
+		btnBox.getChildren().addAll(new Label("img"),details);
+		btn.setGraphic(btnBox);
+		btn.setPrefSize(400, 50);		
+		btn.setId("RecentFaveTile");
+		
+		return btn;
+	}
 	
 	/**
 	 * Called before the page is shown
