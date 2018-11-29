@@ -71,7 +71,7 @@ public class HomeController implements Controller {
 		// tile instances
 		Button b1 = new Button("");
 		VBox b1TextBox= new VBox();
-		Label b1Label = new Label("POP");
+		Label b1Label = new Label("Pop");
 		Label b1Sublabel = new Label("Most Liked");
 		Label b1Sublabel2 = new Label("Genre");
 		b1Label.setId("tileLabel");
@@ -83,12 +83,24 @@ public class HomeController implements Controller {
 		
 		Button b2 = new Button("53 Songs");
 		VBox b2TextBox= new VBox();
-		b2TextBox.getChildren().addAll(new Label("53"), new Label("Liked"), new Label("Songs"));
+		Label b2Label = new Label("51");
+		Label b2Sublabel = new Label("New Songs");
+		Label b2Sublabel2 = new Label("Discovered");
+		b2Label.setId("tileLabel");
+		b2Sublabel.setId("tileSublabel");
+		b2Sublabel2.setId("tileSublabel");
+		b2TextBox.getChildren().addAll(b2Label, b2Sublabel, b2Sublabel2);
 		b2.setGraphic(b2TextBox);
 		
 		Button b3 = new Button("Another one");
 		VBox b3TextBox= new VBox();
-		b3TextBox.getChildren().addAll(new Label("Pop"), new Label("Songs"));
+		Label b3Label = new Label("2");
+		Label b3Sublabel = new Label("Hours of");
+		Label b3Sublabel2 = new Label("New Music");
+		b3Label.setId("tileLabel");
+		b2Sublabel.setId("tileSublabel");
+		b3Sublabel2.setId("tileSublabel");
+		b3TextBox.getChildren().addAll(b3Label, b3Sublabel, b3Sublabel2);
 		b3.setGraphic(b3TextBox);
 
 		double dim = 100;
