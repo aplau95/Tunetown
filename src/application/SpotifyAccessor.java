@@ -64,6 +64,7 @@ public class SpotifyAccessor {
 					return new TrackData(){{
 						setName(t.getName());
 						setPreviewUrl(t.getPreviewUrl());
+						setDuration(t.getDurationMs());
 						setArtists(Arrays.stream(t.getArtists()).map(ArtistSimplified::getName).collect(Collectors.joining(", ")));
 						setImageUrl(Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth)).get().getUrl());
 						setGenre(a.getGenres()[0]);
