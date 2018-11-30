@@ -11,7 +11,7 @@
     -fx-opacity: 0.5;
 }
 
-#labelHome, #labelDiscover, #labelPlaylists, #labelFavorites {
+#labelHome, #labelDiscover, #labelSettings, #labelFavorites {
     -fx-text-fill: #F2F2F2;
     -fx-font-size: 10;
     -fx-font-family: "Verdana";
@@ -26,8 +26,8 @@
     -fx-image: url("assets/discover.png");
 }
 
-#iconPlaylists {
-    -fx-image: url("assets/playlist.png");
+#iconSettings {
+    -fx-image: url("assets/settings.png");
 }
 
 #iconFavorites {
