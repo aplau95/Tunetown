@@ -3,14 +3,13 @@ package application.controller.Discover;
 import application.Logger;
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
+import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -19,13 +18,17 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.*;
 
 public class DiscoverController implements Controller {
+
+	FavoritesData fd;
 
 	VBox root;
 	HBox actionButtons;
 	HBox timeLabels;
 
+	Button genreB;
 	ImageView albumI;
 	ProgressBar pb;
 	Label songNameL;
@@ -38,11 +41,14 @@ public class DiscoverController implements Controller {
 	SpotifyAccessor spotify;
 	TrackData currentTrack;
 	LoopingAudioPlayer player;
+	FavoritesData favoritesData;
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-	public DiscoverController() {
+	public DiscoverController(FavoritesData fd) {
+		this.fd = fd;
 		try {
+			favoritesData = fd;
 			spotify = new SpotifyAccessor();
 			currentTrack = spotify.getNextRecommendation();
 		} catch (Exception e) {
@@ -50,27 +56,22 @@ public class DiscoverController implements Controller {
 		}
 	}
 
-
 	@Override
 	public Node buildScene() {
 
 		root = new VBox();
 		root.setId("root");
 
-		Region regionLeft = new Region();
-		regionLeft.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
-		Region regionRight = new Region();
-		regionRight.setPrefWidth(40);
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
 		Label discoverL = new Label("Discover");
 		discoverL.setId("discoverLabel");
-		Button genreB = new Button("Pop");
+		genreB = new Button(currentTrack.getGenre());
 		genreB.setId("genreButton");
-		topBar.getChildren().addAll(regionLeft, discoverL, regionCenter, genreB, regionRight);
+		topBar.getChildren().addAll(discoverL, regionCenter, genreB);
 
 		albumI = new ImageView();
 		albumI.setFitWidth(300);
@@ -104,8 +105,8 @@ public class DiscoverController implements Controller {
 		likeB = new Button();
 		likeB.setId("like");
 
-		dislikeB.setOnAction(e -> onNext());
-		likeB.setOnAction(e -> onNext());
+		dislikeB.setOnAction(e -> onDislike());
+		likeB.setOnAction(e -> onLike());
 
 		actionButtons.getChildren().addAll(dislikeB, likeB);
 		actionButtons.setAlignment(Pos.CENTER);
@@ -117,11 +118,30 @@ public class DiscoverController implements Controller {
 		return root;
 	}
 
-	public void onNext() {
+	public void onDislike() {
 		player.stop();
 
 		try {
 
+			currentTrack = spotify.getNextRecommendation();
+			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
+			executorService.submit(player);
+
+			albumI.setImage(new Image(currentTrack.getImageUrl()));
+			songNameL.setText(currentTrack.getName());
+			artistL.setText(currentTrack.getArtists());
+			genreB.setText(currentTrack.getGenre());
+
+		} catch(MalformedURLException ex) {
+			System.out.println("Error");
+		}
+	}
+
+	public void onLike() {
+		player.stop();
+
+		try {
+			favoritesData.addToFavorites(currentTrack);
 			currentTrack = spotify.getNextRecommendation();
 			player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
 			executorService.submit(player);
@@ -166,6 +186,7 @@ public class DiscoverController implements Controller {
 			albumI.setImage(new Image(currentTrack.getImageUrl()));
 			songNameL.setText(currentTrack.getName());
 			artistL.setText(currentTrack.getArtists());
+			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException e) {
 	    	Logger.getInstance().Log("Error: " + e.getMessage());

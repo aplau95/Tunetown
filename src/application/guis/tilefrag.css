@@ -1,0 +1,12 @@
+#tileFrag {
+    -fx-max-width: 100px;
+    -fx-max-height: 100px;
+}
+
+#tile {
+    -fx-background-color: linear-gradient(#FF512F, #DD2476);
+}
+
+#tileList {
+    -fx-padding: 10 40 10 40;
+}
