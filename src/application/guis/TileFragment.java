@@ -43,7 +43,7 @@ public class TileFragment {
 		return b1;
 	}
 	
-	public static Button CreateRecentFaveTile(String title, String album, String artist) {
+	public static Button CreateRecentFaveTile(String imageUrl, String title, String album, String artist) {
 		Button btn = new Button();
 		HBox btnBox = new HBox();
 		VBox details = new VBox();
@@ -52,7 +52,7 @@ public class TileFragment {
 		
 		
 		ImageView i = new ImageView();
-		i.setImage(new Image("https://images-na.ssl-images-amazon.com/images/I/51%2B0AeCT5mL._SS500.jpg"));
+		i.setImage(new Image(imageUrl));
 		i.setFitWidth(50);
 		i.setPreserveRatio(true);
 
