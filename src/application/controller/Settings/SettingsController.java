@@ -1,4 +1,4 @@
-package application.controller.Playlists;
+package application.controller.Settings;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
@@ -21,7 +21,7 @@ import java.util.*;
 
 
 
-public class PlaylistsController implements Controller {
+public class SettingsController implements Controller {
 
 	FavoritesData fd;
 
@@ -46,7 +46,7 @@ public class PlaylistsController implements Controller {
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 
-	public PlaylistsController(FavoritesData fd) {
+	public SettingsController(FavoritesData fd) {
 		this.fd = fd;
 		try {
 			this.fd = fd;
@@ -66,10 +66,10 @@ public class PlaylistsController implements Controller {
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
-		Label playlistsL = new Label("Playlists");
-		playlistsL.setId("playlistsLabel");
+		Label settingsL = new Label("Settings");
+		settingsL.setId("settingsLabel");
 	
-		topBar.getChildren().addAll(playlistsL, regionCenter);
+		topBar.getChildren().addAll(settingsL, regionCenter);
 
 		// albumI = new ImageView();
 		// albumI.setFitWidth(300);
@@ -119,7 +119,7 @@ public class PlaylistsController implements Controller {
 			// actionButtons
 			);
 		root.setAlignment(Pos.TOP_CENTER);
-		root.getStylesheets().add(getClass().getResource("playlists.css").toExternalForm());
+		root.getStylesheets().add(getClass().getResource("settings.css").toExternalForm());
 
 		return root;
 	}
