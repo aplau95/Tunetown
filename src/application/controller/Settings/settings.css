@@ -9,12 +9,36 @@
     -fx-text-fill: #F2F2F2;
 }
 
-#settingsLabel {
+#Header {
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
     -fx-font-size: 22;
 }
 
-#topBar {
-    -fx-padding: 30 40 80 40;
+#Node {
+    -fx-padding: 30 40 20 40;
+}
+
+#Subheader {
+    -fx-font-family: "Verdana";
+    -fx-font-weight: bold;
+    -fx-font-size: 18;
+}
+
+#Description {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 12;
+}
+
+#Input {
+    -fx-control-inner-background: #232329; 
+    -fx-text-fill: #F2F2F2;
+}
+
+#GenreLabel{
+    -fx-font-family: "Verdana";
+    -fx-font-size: 16;
+}
+#IconDelete {
+    -fx-image: url("../../assets/delete.png");
 }

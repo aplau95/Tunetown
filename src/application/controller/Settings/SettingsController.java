@@ -7,11 +7,19 @@ import application.TrackData;
 import application.controller.Controller;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -26,22 +34,7 @@ public class SettingsController implements Controller {
 	FavoritesData fd;
 
 	VBox root;
-	// HBox actionButtons;
-	// HBox timeLabels;
-
-	// ImageView albumI;
-	// ProgressBar pb;
-	// Label songNameL;
-	// Label artistL;
-	// Label timePassedL;
-	// Label timeLeftL;
-	// Button dislikeB;
-	// Button likeB;
-
-	// SpotifyAccessor spotify;
-	// TrackData currentTrack;
-	// LoopingAudioPlayer player;
-	// FavoritesData favoritesData;
+	int faveGenres = 0;
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -61,62 +54,102 @@ public class SettingsController implements Controller {
 		root = new VBox();
 		root.setId("root");
 
+		// Heading
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
 
 		HBox topBar = new HBox();
-		topBar.setId("topBar");
+		topBar.setId("Node");
 		Label settingsL = new Label("Settings");
-		settingsL.setId("settingsLabel");
+		settingsL.setId("Header");
 	
 		topBar.getChildren().addAll(settingsL, regionCenter);
 
-		// albumI = new ImageView();
-		// albumI.setFitWidth(300);
-		// albumI.setPreserveRatio(true);
+		// Name
+		VBox nameBox = new VBox();
+		nameBox.setSpacing(10);
+		nameBox.setId("Node");
+		//nameBox.setPadding(new Insets(0, 50, 0, 50));
+		//nameBox.setSpacing(10);
+		Label nameSH = new Label("Name");
+		nameSH.setId("Subheader");
+		Label nameD = new Label("You name will only be used in the app");
+		nameD.setId("Description");
 
-		// albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// pb = new ProgressBar(0.0);
-		// pb.setPrefWidth(300);
-		// pb.setId("progressBar");
+		HBox nameEdit = new HBox();
+		nameEdit.setSpacing(10);
+		TextField nameIn = new TextField("Dad?");
+		nameIn.setId("Input");
+		nameIn.setMinWidth(300);
+		Label nameSave = new Label("");	// to add a save button - if needed
+		nameEdit.getChildren().addAll(nameIn, nameSave);
 
-		// timePassedL = new Label("0:00");
-		// timeLeftL = new Label("-30:00");
-		// Region region1 = new Region();
-		// HBox.setHgrow(region1, Priority.ALWAYS);
+		nameBox.getChildren().addAll(
+			nameSH,
+			nameD,
+			nameEdit
+			);
 
-		// timeLabels = new HBox();
-		// timeLabels.setId("timeLabels");
-		// timeLabels.getChildren().addAll(timePassedL, region1, timeLeftL);
-		// timeLabels.setMaxWidth(300);
+		// Favorite Genres
+		VBox genreBox = new VBox();
+		genreBox.setSpacing(10);
+		genreBox.setId("Node");
+		Label genreSH = new Label("Favorite Genres");
+		genreSH.setId("Subheader");
+		Label genreD = new Label("Used to tailor recommendations to your taste");
+		genreD.setId("Description");
 
-		// songNameL = new Label(currentTrack.getName());
-		// songNameL.setId("songName");
-		// artistL = new Label(currentTrack.getArtists());
-		// artistL.setId("artistName");
+		VBox genreList = new VBox();
+		genreList.setSpacing(10);
 
-		// actionButtons = new HBox();
-		// actionButtons.setId("actionButtons");
+		HBox genreEdit = new HBox();
+		TextField genreIn = new TextField("Add new genre");
+		genreIn.setId("Input");
+		genreIn.setMinWidth(300);
+		Label genreSave = new Label(); 		// to add a save button - if needed
+		genreEdit.getChildren().addAll(genreIn, genreSave);
+		
+		genreList.getChildren().addAll(
+			AddNewGenre("Pop"),
+			AddNewGenre("Hip Hop"),
+			AddNewGenre("Alternatic Rock"),
+			AddNewGenre("Electronic"),
+			genreEdit
+		);
 
-		// dislikeB = new Button();
-		// dislikeB.setId("dislike");
-		// likeB = new Button();
-		// likeB.setId("like");
+		genreBox.getChildren().addAll(
+			genreSH,
+			genreD,
+			genreList
+		);
 
-		// dislikeB.setOnAction(e -> onDislike());
-		// likeB.setOnAction(e -> onLike());
+		// Popularity
+		VBox popBox = new VBox();
+		popBox.setSpacing(10);
+		popBox.setId("Node");
+		Label popSH = new Label ("Popularity");
+		popSH.setId("Subheader");
+		Label popD = new Label("A low popularity will recommend rarer songs while a high value will recommend recent popular songs");
+		popD.setWrapText(true);
+		popD.setId("Description");
 
-		// actionButtons.getChildren().addAll(dislikeB, likeB);
-		// actionButtons.setAlignment(Pos.CENTER);
+		Slider popSlider = new Slider(0, 100, 50);
+		popSlider.setShowTickMarks(true);
+		popSlider.setShowTickLabels(true);
+		popSlider.setMajorTickUnit(25f);
+		popSlider.setBlockIncrement(1f);
+
+		popBox.getChildren().addAll(
+			popSH,
+			popD,
+			popSlider
+		);
 
 		root.getChildren().addAll(
-			topBar
-			// albumI, 
-			// pb, 
-			// timeLabels, 
-			// songNameL, 
-			// artistL, 
-			// actionButtons
+			topBar,
+			nameBox,
+			genreBox,
+			popBox
 			);
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("settings.css").toExternalForm());
@@ -124,6 +157,19 @@ public class SettingsController implements Controller {
 		return root;
 	}
 
+	public HBox AddNewGenre(String gName) {
+		HBox genre = new HBox();
+		genre.setSpacing(10);
+		ImageView deleteIcon = new ImageView();
+		deleteIcon.setId("IconDelete");
+		Label genreLbl = new Label(gName);
+		genreLbl.setId("GenreLabel");
+		genre.getChildren().addAll(
+			deleteIcon,
+			genreLbl
+		);
+		return genre;
+	}
 	
 	/**
 	 * Called before the page is shown

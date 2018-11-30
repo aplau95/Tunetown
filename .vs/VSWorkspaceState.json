@@ -4,8 +4,9 @@
     "\\src",
     "\\src\\application",
     "\\src\\application\\controller",
-    "\\src\\application\\controller\\Home"
+    "\\src\\application\\controller\\Home",
+    "\\src\\application\\controller\\Settings"
   ],
-  "SelectedNode": "\\src\\application\\controller\\Home\\HomeController.java",
+  "SelectedNode": "\\src\\application\\controller\\ControllerFactory.java",
   "PreviewInSolutionExplorer": false
 }
