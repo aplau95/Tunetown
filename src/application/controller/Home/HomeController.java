@@ -3,13 +3,14 @@ package application.controller.Home;
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
 import application.guis.TileFragment;
-// import application.guis.TrackFragment;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 
 import java.awt.Dimension;
@@ -69,9 +70,9 @@ public class HomeController implements Controller {
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
-		Button b1 = CreateTile("Pop", "Most Liked", "Genre");			
-		Button b2 = CreateTile("51", "New Songs", "Discovered"); 		
-		Button b3 = CreateTile("2", "Hours of", "New Music"); 
+		Button b1 = TileFragment.CreateTile("Pop", "Most Liked", "Genre");			
+		Button b2 = TileFragment.CreateTile("51", "New Songs", "Discovered"); 		
+		Button b3 = TileFragment.CreateTile("2", "Hours of", "New Music"); 
 
 		b1.setId("tile1");
 		b2.setId("tile2");
@@ -93,11 +94,11 @@ public class HomeController implements Controller {
 		// song tiles
 		VBox recentfaveList = new VBox();
 		recentfaveList.getChildren().addAll(
-				CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
-				CreateRecentFaveTile("Controlla", "Views", "Drake"), 
-				CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
+				TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
+				TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
+				TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
 				);
-		recentfaveList.setSpacing(10.0);
+		recentfaveList.setSpacing(20.0);
 		recentfaveBox.getChildren().addAll(recentfaveTitle, recentfaveList);
 		recentfaveBox.setSpacing(20.0);
 		
@@ -129,38 +130,45 @@ public class HomeController implements Controller {
 		return root;
 	}
 
-	private Button CreateTile(String label, String sublabel, String sublabel2) {
-		Button b1 = new Button();
-		VBox b1TextBox= new VBox();
-		Label b1Label = new Label(label);
-		Label b1Sublabel = new Label(sublabel);
-		Label b1Sublabel2 = new Label(sublabel2);
-		b1Label.setId("tileLabel");
-		b1Sublabel.setId("tileSublabel");
-		b1Sublabel2.setId("tileSublabel");
-		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
-		b1.setGraphic(b1TextBox);
-		b1.setPrefSize(100, 100);
+	// private Button CreateTile(String label, String sublabel, String sublabel2) {
+	// 	Button b1 = new Button();
+	// 	VBox b1TextBox= new VBox();
+	// 	Label b1Label = new Label(label);
+	// 	Label b1Sublabel = new Label(sublabel);
+	// 	Label b1Sublabel2 = new Label(sublabel2);
+	// 	b1Label.setId("tileLabel");
+	// 	b1Sublabel.setId("tileSublabel");
+	// 	b1Sublabel2.setId("tileSublabel");
+	// 	b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
+	// 	b1.setGraphic(b1TextBox);
+	// 	b1.setPrefSize(100, 100);
 		
-		return b1;
-	}
+	// 	return b1;
+	// }
 	
-	private Button CreateRecentFaveTile(String title, String album, String artist) {
-		Button btn = new Button();
-		HBox btnBox = new HBox();
-		VBox details = new VBox();
-		Label lbl = new Label(title);
-		Label subLbl = new Label(album + " - " + artist);
-		lbl.setId("recentFaveLabel");
-		subLbl.setId("recentFaveSubLabel");
-		details.getChildren().addAll(lbl, subLbl);
-		btnBox.getChildren().addAll(new Label("img"),details);
-		btn.setGraphic(btnBox);
-		btn.setPrefSize(400, 50);		
-		btn.setId("RecentFaveTile");
+	// private Button CreateRecentFaveTile(String title, String album, String artist) {
+	// 	Button btn = new Button();
+	// 	HBox btnBox = new HBox();
+	// 	VBox details = new VBox();
+	// 	Label lbl = new Label(title);
+	// 	Label subLbl = new Label(album + " - " + artist);
 		
-		return btn;
-	}
+		
+	// 	ImageView i = new ImageView();
+	// 	i.setImage(new Image("https://images-na.ssl-images-amazon.com/images/I/51%2B0AeCT5mL._SS500.jpg"));
+	// 	i.setFitWidth(50);
+	// 	i.setPreserveRatio(true);
+
+	// 	lbl.setId("recentFaveLabel");
+	// 	subLbl.setId("recentFaveSubLabel");
+	// 	details.getChildren().addAll(lbl, subLbl);
+	// 	btnBox.getChildren().addAll(i,details);
+	// 	btn.setGraphic(btnBox);
+	// 	btn.setPrefSize(400, 70);		
+	// 	btn.setId("RecentFaveTile");
+		
+	// 	return btn;
+	// }
 	
 	/**
 	 * Called before the page is shown
