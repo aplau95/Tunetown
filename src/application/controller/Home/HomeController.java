@@ -2,6 +2,7 @@ package application.controller.Home;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
+import application.guis.SquareTile;
 import application.guis.TileFragment;
 import application.FavoritesData;
 import application.TrackData;
@@ -29,6 +30,12 @@ public class HomeController implements Controller {
 	HBox topBar;
 	HBox tileList;
 	VBox root;
+	Button b2;
+	Button b1;
+	SquareTile st1;
+	SquareTile st2;
+	SquareTile st3;
+	Button b3;
 
 	Button settingsB;
 
@@ -70,9 +77,12 @@ public class HomeController implements Controller {
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
-		Button b1 = TileFragment.CreateTile("Pop", "Most Liked", "Genre");			
-		Button b2 = TileFragment.CreateTile("51", "New Songs", "Discovered"); 		
-		Button b3 = TileFragment.CreateTile("2", "Hours of", "New Music"); 
+		st1 = new SquareTile("Pop", "Most Liked", "Genre");
+		b1 = st1.getSquareTile();
+		st2 = new SquareTile(fd.numberOfFavorites().toString(), "New Songs", "Discovered");
+		b2 = st2.getSquareTile();
+		st3 = new SquareTile(fd.numberOfMinutes().toString(), "Minutes", "New Music");
+		b3 = st3.getSquareTile();
 
 		b1.setId("tile1");
 		b2.setId("tile2");
@@ -94,81 +104,28 @@ public class HomeController implements Controller {
 		// song tiles
 		VBox recentfaveList = new VBox();
 		recentfaveList.getChildren().addAll(
-				TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
-				TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
-				TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
+				// TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
+				// TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
+				// TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
 				);
 		recentfaveList.setSpacing(20.0);
 		recentfaveBox.getChildren().addAll(recentfaveTitle, recentfaveList);
 		recentfaveBox.setSpacing(20.0);
 		
-		// not doing anything with this rn
-		//numTracks = new Label(fd.numberOfFavorites().toString());
-		//numTracks.setId("tuneTownLabel");
+
 		
-
-		if (fd.numberOfFavorites() >= 3){
-			// track1 = new TrackFragment(fd.getAt(0));
-			// track2 = new TrackFragment(fd.getAt(1));
-			// track3 = new TrackFragment(fd.getAt(2));
-
-			root.getChildren().addAll(
-			topBar
-			);
-		} else {
-			root.getChildren().addAll(
-			topBar,
-			greetingBox,
-			tileList,
-			recentfaveBox
-			);
-		}
+		root.getChildren().addAll(
+		topBar,
+		greetingBox,
+		tileList,
+		recentfaveBox
+		);
 		
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("home.css").toExternalForm());
 
 		return root;
 	}
-
-	// private Button CreateTile(String label, String sublabel, String sublabel2) {
-	// 	Button b1 = new Button();
-	// 	VBox b1TextBox= new VBox();
-	// 	Label b1Label = new Label(label);
-	// 	Label b1Sublabel = new Label(sublabel);
-	// 	Label b1Sublabel2 = new Label(sublabel2);
-	// 	b1Label.setId("tileLabel");
-	// 	b1Sublabel.setId("tileSublabel");
-	// 	b1Sublabel2.setId("tileSublabel");
-	// 	b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
-	// 	b1.setGraphic(b1TextBox);
-	// 	b1.setPrefSize(100, 100);
-		
-	// 	return b1;
-	// }
-	
-	// private Button CreateRecentFaveTile(String title, String album, String artist) {
-	// 	Button btn = new Button();
-	// 	HBox btnBox = new HBox();
-	// 	VBox details = new VBox();
-	// 	Label lbl = new Label(title);
-	// 	Label subLbl = new Label(album + " - " + artist);
-		
-		
-	// 	ImageView i = new ImageView();
-	// 	i.setImage(new Image("https://images-na.ssl-images-amazon.com/images/I/51%2B0AeCT5mL._SS500.jpg"));
-	// 	i.setFitWidth(50);
-	// 	i.setPreserveRatio(true);
-
-	// 	lbl.setId("recentFaveLabel");
-	// 	subLbl.setId("recentFaveSubLabel");
-	// 	details.getChildren().addAll(lbl, subLbl);
-	// 	btnBox.getChildren().addAll(i,details);
-	// 	btn.setGraphic(btnBox);
-	// 	btn.setPrefSize(400, 70);		
-	// 	btn.setId("RecentFaveTile");
-		
-	// 	return btn;
-	// }
 	
 	/**
 	 * Called before the page is shown
@@ -183,7 +140,8 @@ public class HomeController implements Controller {
 	 */
 	@Override
 	public void afterShow() {
-			numTracks.setText(fd.numberOfFavorites().toString());
+			b2 = st2.updateData(fd.numberOfFavorites().toString());
+			b3 = st3.updateData(Integer.toString(fd.numberOfMinutes() / 60000));
 	}
 
 	/**

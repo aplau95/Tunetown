@@ -4,6 +4,7 @@ import java.util.*;
 public class FavoritesData {
 
     private Stack<TrackData> favoritesList = new Stack<TrackData>();
+    Integer duration = 0;
 
     public FavoritesData(){
     }
@@ -17,11 +18,16 @@ public class FavoritesData {
     }
     
     public void addToFavorites(TrackData track){
+        duration += track.getDuration();
         favoritesList.push(track);
     }
 
     public Integer numberOfFavorites(){
         return favoritesList.size();
+    }
+
+    public Integer numberOfMinutes(){
+        return duration;
     }
 
 }
