@@ -26,7 +26,6 @@ public class HomeController implements Controller {
 	// TrackFragment track2;
 	// TrackFragment track3;
 
-	Label numTracks;
 	HBox topBar;
 	HBox tileList;
 	VBox root;
@@ -36,8 +35,9 @@ public class HomeController implements Controller {
 	SquareTile st2;
 	SquareTile st3;
 	Button b3;
+	VBox recentfaveList;
 
-	Button settingsB;
+	
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -63,9 +63,7 @@ public class HomeController implements Controller {
 		topBar.setId("topBar");
 		Label tuneTownL = new Label("TuneTown");
 		tuneTownL.setId("headerLabel");
-		settingsB = new Button();
-		settingsB.setId("settingsButton");
-		topBar.getChildren().addAll(tuneTownL, regionCenter, settingsB);
+		topBar.getChildren().addAll(tuneTownL, regionCenter);
 
 		String name = "Dad?";
 		HBox greetingBox = new HBox();
@@ -101,16 +99,19 @@ public class HomeController implements Controller {
 		Label recentfaveTitle = new Label("Recently Favorited");
 		recentfaveTitle.setId("headerLabel");
 		
+		
 		// song tiles
-		VBox recentfaveList = new VBox();
-		recentfaveList.getChildren().addAll(
-				// TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
-				// TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
-				// TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
-				);
+		recentfaveList = new VBox();
+		// recentfaveList.getChildren().addAll(
+		// 		// TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
+		// 		// TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
+		// 		// TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
+		// 		);
 		recentfaveList.setSpacing(20.0);
 		recentfaveBox.getChildren().addAll(recentfaveTitle, recentfaveList);
 		recentfaveBox.setSpacing(20.0);
+
+		
 		
 
 		
@@ -142,6 +143,27 @@ public class HomeController implements Controller {
 	public void afterShow() {
 			b2 = st2.updateData(fd.numberOfFavorites().toString());
 			b3 = st3.updateData(Integer.toString(fd.numberOfMinutes() / 60000));
+			if (fd.numberOfFavorites() >= 3){
+				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 3);
+				TrackData temp2 = fd.getAt(fd.numberOfFavorites() - 2);
+				TrackData temp3 = fd.getAt(fd.numberOfFavorites() - 1);
+				recentfaveList.getChildren().clear();
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp3.getImageUrl(), temp3.getName(), temp3.getAlbum(), temp3.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));				
+			} else if (fd.numberOfFavorites() == 2) {
+				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 2);
+				TrackData temp2 = fd.getAt(fd.numberOfFavorites() - 1);
+				recentfaveList.getChildren().clear();
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
+			} else if (fd.numberOfFavorites() == 1) {
+				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 1);
+				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
+			} else {
+	
+			}
+			
 	}
 
 	/**
