@@ -1,5 +1,6 @@
 package application.controller.Discover;
 
+import application.Logger;
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;
 import application.TrackData;
@@ -45,7 +46,7 @@ public class DiscoverController implements Controller {
 			spotify = new SpotifyAccessor();
 			currentTrack = spotify.getNextRecommendation();
 		} catch (Exception e) {
-			System.out.println("Failed to connect to spotify");
+			Logger.getInstance().Log("Failed to connect to spotify");
 		}
 	}
 
@@ -130,7 +131,7 @@ public class DiscoverController implements Controller {
 			artistL.setText(currentTrack.getArtists());
 
 		} catch(MalformedURLException ex) {
-			System.out.println("Error");
+	    	Logger.getInstance().Log("Error");
 		}
 	}
 
@@ -167,7 +168,7 @@ public class DiscoverController implements Controller {
 			artistL.setText(currentTrack.getArtists());
 
 		} catch(MalformedURLException e) {
-			System.out.println("Error " + e);
+	    	Logger.getInstance().Log("Error: " + e.getMessage());
 		}
 	}
 

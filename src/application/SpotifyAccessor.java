@@ -36,7 +36,7 @@ public class SpotifyAccessor {
 			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
 		} catch (IOException | SpotifyWebApiException e) {
-			System.out.println("Error: " + e.getMessage());
+			Logger.getInstance().Log("Error" + e.getMessage());
 		}
 		
 	}
@@ -74,7 +74,7 @@ public class SpotifyAccessor {
 			} while(true);
 
 		} catch (IOException | SpotifyWebApiException e) {
-			System.out.println("Error: " + e.getMessage());
+	    	Logger.getInstance().Log("Error: " + e.getMessage());
 		}
 
 		return null;
