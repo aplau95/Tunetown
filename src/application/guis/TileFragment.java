@@ -27,7 +27,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TileFragment {
-    public static  Button CreateTile(String label, String sublabel, String sublabel2) {
+    public static Button CreateTile(String label, String sublabel, String sublabel2) {
 		Button b1 = new Button();
 		VBox b1TextBox= new VBox();
 		Label b1Label = new Label(label);
@@ -42,15 +42,15 @@ public class TileFragment {
 		
 		return b1;
 	}
-	
+
 	public static Button CreateRecentFaveTile(String imageUrl, String title, String album, String artist) {
 		Button btn = new Button();
 		HBox btnBox = new HBox();
 		VBox details = new VBox();
+
 		Label lbl = new Label(title);
 		Label subLbl = new Label(album + " - " + artist);
-		
-		
+
 		ImageView i = new ImageView();
 		i.setImage(new Image(imageUrl));
 		i.setFitWidth(50);

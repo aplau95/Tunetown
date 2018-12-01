@@ -5,11 +5,14 @@ import application.SpotifyAccessor;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
+import application.guis.TileFragment;
 import javafx.application.Platform;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,13 +20,23 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import org.apache.commons.codec.binary.StringUtils;
 import org.controlsfx.control.textfield.CustomTextField;
+
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 
 public class FavoritesController implements Controller {
 
 	FavoritesData fd;
 	Button numLikedB;
+	VBox searchResults;
+	CustomTextField searchBar;
+
+	ExecutorService executorService = Executors.newFixedThreadPool(1);
 
 	public FavoritesController(FavoritesData fd) {
 		this.fd = fd;
@@ -42,10 +55,14 @@ public class FavoritesController implements Controller {
 
 		Region regionLeft = new Region();
 		regionLeft.setPrefWidth(40);
+		Region regionLeft1 = new Region();
+		regionLeft1.setPrefWidth(40);
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
 		Region regionRight = new Region();
 		regionRight.setPrefWidth(40);
+		Region regionRight1 = new Region();
+		regionRight1.setPrefWidth(40);
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
@@ -53,17 +70,52 @@ public class FavoritesController implements Controller {
 		discoverL.setId("favoritesLabel");
 		numLikedB = new Button("53 Songs");
 		numLikedB.setId("numLikedButton");
-		topBar.getChildren().addAll(regionLeft, discoverL, regionCenter, numLikedB, regionRight);
+		topBar.getChildren().addAll(discoverL, regionCenter, numLikedB, regionRight);
 
-		CustomTextField searchBar = new CustomTextField();
+		HBox searchBox = new HBox();
+		searchBar = new CustomTextField();
 		searchBar.setLeft(new ImageView() {{setId("searchImage");}});
 		searchBar.setId("searchBar");
+		searchBar.setPromptText("Search by Song Name, Artist, or Genre...");
+		HBox.setHgrow(searchBar, Priority.ALWAYS);
+		searchBox.getChildren().addAll(regionLeft,searchBar,regionRight);
+		searchBar.textProperty().addListener(this::onSearch);
 
-		root.getChildren().addAll(topBar, searchBar);
+		searchResults = new VBox();
+		searchResults.setAlignment(Pos.TOP_CENTER);
+		searchResults.setSpacing(15);
+		HBox scrollBox = new HBox();
+		ScrollPane sp = new ScrollPane();
+		sp.setFitToWidth(true);
+		sp.setId("scrollPane");
+		sp.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		sp.setContent(searchResults);
+		HBox.setHgrow(sp, Priority.ALWAYS);
+		scrollBox.getChildren().addAll(regionLeft1, sp, regionRight1);
+		sp.setPrefViewportHeight(1000);
+
+		root.getChildren().addAll(topBar, searchBox, scrollBox);
 		root.setAlignment(Pos.TOP_CENTER);
 		root.getStylesheets().add(getClass().getResource("favorites.css").toExternalForm());
 
 		return root;
+	}
+
+	private void onSearch(ObservableValue obs, String oldText, String searchText) {
+
+		searchResults.getChildren().clear();
+
+		fd.getFavoritesList().stream()
+				.filter((TrackData td) -> {
+					return td.getArtists().toLowerCase().contains(searchText.toLowerCase()) ||
+							td.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+							td.getGenre().toLowerCase().contains(searchText.toLowerCase());
+				})
+				.map((TrackData td) -> {
+					return TileFragment.CreateRecentFaveTile(td.getImageUrl(), td.getName(),"",td.getArtists());
+				})
+				.forEach(searchResults.getChildren()::add);
+
 	}
 
 	
@@ -72,7 +124,7 @@ public class FavoritesController implements Controller {
 	 */
 	@Override
 	public void beforeShow() {
-		//Implement if necessary
+		// Add something here if you want
 	}
 
 	/**
@@ -80,20 +132,7 @@ public class FavoritesController implements Controller {
 	 */
 	@Override
 	public void afterShow() {
-
-		// try {
-
-		// 	player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
-		// 	executorService.submit(player);
-
-		// 	albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// 	songNameL.setText(currentTrack.getName());
-		// 	artistL.setText(currentTrack.getArtists());
-		// 	genreB.setText(currentTrack.getGenre());
-
-		// } catch(MalformedURLException e) {
-		// 	System.out.println("Error " + e);
-		// }
+		onSearch(null,"", searchBar.getText());
 	}
 
 	/**

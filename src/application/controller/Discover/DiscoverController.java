@@ -149,6 +149,7 @@ public class DiscoverController implements Controller {
 			albumI.setImage(new Image(currentTrack.getImageUrl()));
 			songNameL.setText(currentTrack.getName());
 			artistL.setText(currentTrack.getArtists());
+			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException ex) {
 	    	Logger.getInstance().Log("Error");

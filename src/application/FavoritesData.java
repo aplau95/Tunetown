@@ -30,8 +30,12 @@ public class FavoritesData {
         return favoritesList.size();
     }
 
-    public Integer numberOfMinutes(){
+    public Integer numberOfMinutes() {
         return totalDuration;
+    }
+
+    public Stack<TrackData> getFavoritesList() {
+        return favoritesList;
     }
 
 }
