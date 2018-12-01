@@ -1,14 +1,15 @@
 package application.controller;
 
-import application.FavoritesData;
-import org.junit.Test;
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.junit.Assert.assertThat;
+import org.junit.jupiter.api.Test;
 
+import application.FavoritesData;
 import application.controller.Discover.DiscoverController;
 import application.controller.Favorites.FavoritesController;
 import application.controller.Home.HomeController;
 import application.controller.Playlists.PlaylistsController;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 class ControllerFactoryTests {
 
