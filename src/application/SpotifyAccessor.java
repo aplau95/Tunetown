@@ -33,7 +33,7 @@ public class SpotifyAccessor {
 			spotifyApi.setAccessToken(clientCredentials.getAccessToken());
 
 		} catch (IOException | SpotifyWebApiException e) {
-			System.out.println("Error: " + e.getMessage());
+			Logger.getInstance().Log("Error" + e.getMessage());
 		}
 		
 	}
@@ -64,6 +64,8 @@ public class SpotifyAccessor {
 					return new TrackData(){{
 						setName(t.getName());
 						setPreviewUrl(t.getPreviewUrl());
+						setDuration(t.getDurationMs());
+						setAlbum(t.getAlbum().getName());
 						setArtists(Arrays.stream(t.getArtists()).map(ArtistSimplified::getName).collect(Collectors.joining(", ")));
 						setImageUrl(Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth)).get().getUrl());
 						setGenre(a.getGenres()[0]);
@@ -73,7 +75,7 @@ public class SpotifyAccessor {
 			} while(true);
 
 		} catch (IOException | SpotifyWebApiException e) {
-			System.out.println("Error: " + e.getMessage());
+	    	Logger.getInstance().Log("Error: " + e.getMessage());
 		}
 
 		return null;

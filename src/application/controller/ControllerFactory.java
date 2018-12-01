@@ -3,7 +3,7 @@ package application.controller;
 import application.controller.Discover.DiscoverController;
 import application.controller.Favorites.FavoritesController;
 import application.controller.Home.HomeController;
-import application.controller.Playlists.PlaylistsController;
+import application.controller.Settings.SettingsController;
 import application.FavoritesData;
 
 public class ControllerFactory {
@@ -11,7 +11,7 @@ public class ControllerFactory {
 	public enum Type {
 		DISCOVER,
 		FAVORITES,
-		PLAYLISTS,
+		SETTINGS,
 		HOME;
 	}
 	
@@ -21,8 +21,8 @@ public class ControllerFactory {
 			return new DiscoverController(fd);
 		case FAVORITES:
 			return new FavoritesController(fd);
-		case PLAYLISTS:
-			return new PlaylistsController(fd);
+		case SETTINGS:
+			return new SettingsController(fd);
 		case HOME:
 			return new HomeController(fd);
 		}

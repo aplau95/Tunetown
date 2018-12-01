@@ -27,6 +27,7 @@ public class LoopingAudioPlayer implements Runnable {
 	@Override
 	public void run() {
 		
+		Logger.getInstance().Log("Play music");
 		AudioInputStream din = null;
 		SourceDataLine line = null;
 		

@@ -6,7 +6,8 @@ import application.FavoritesData;
 import application.controller.Discover.DiscoverController;
 import application.controller.Favorites.FavoritesController;
 import application.controller.Home.HomeController;
-import application.controller.Playlists.PlaylistsController;
+import application.controller.Settings.SettingsController;
+import application.FavoritesData;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,11 +31,11 @@ class ControllerFactoryTests {
 		Controller c = ControllerFactory.build(ControllerFactory.Type.FAVORITES, new FavoritesData());
 		assertThat(c, instanceOf(FavoritesController.class));
 	}
-	
+
 	@Test
-	void testBuildPlaylistsController() {
-		Controller c = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS, new FavoritesData());
-		assertThat(c, instanceOf(PlaylistsController.class));
+	void testBuildSettingsController() {
+		Controller c = ControllerFactory.build(ControllerFactory.Type.SETTINGS, new FavoritesData());
+		assertThat(c, instanceOf(SettingsController.class));
 	}
 
 }

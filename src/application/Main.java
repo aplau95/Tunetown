@@ -30,6 +30,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
+		Logger.getInstance().Log("Setting up stage");
 		setupStage(primaryStage);
 	
 	}
@@ -76,12 +77,12 @@ public class Main extends Application {
 		VBox homeTarget = buildNavTarget("Home");
 		VBox discoverTarget = buildNavTarget("Discover");
 		discoverTarget.setId("dim");
-		VBox playlistsTarget = buildNavTarget("Playlists");
-		playlistsTarget.setId("dim");
+		VBox settingsTarget = buildNavTarget("Settings");
+		settingsTarget.setId("dim");
 		VBox favoritesTarget = buildNavTarget("Favorites");
 		favoritesTarget.setId("dim");
 
-		targets = Arrays.asList(homeTarget,discoverTarget,playlistsTarget,favoritesTarget);
+		targets = Arrays.asList(homeTarget,discoverTarget,settingsTarget,favoritesTarget);
 
 		GridPane navPanel = new GridPane();//,hgap, vgap);
 		navPanel.setAlignment(Pos.CENTER);
@@ -107,8 +108,8 @@ public class Main extends Application {
 		);
 		navPanel.add(homeTarget,0,0);
 		navPanel.add(discoverTarget,1,0);
-		navPanel.add(playlistsTarget,2,0);
-		navPanel.add(favoritesTarget,3,0);
+		navPanel.add(favoritesTarget,2,0);
+		navPanel.add(settingsTarget,3,0);
 
 		// Set the padding of the TilePane
 
@@ -122,12 +123,12 @@ public class Main extends Application {
 
 		Controller home = ControllerFactory.build(ControllerFactory.Type.HOME, fd);
 		Controller discover = ControllerFactory.build(ControllerFactory.Type.DISCOVER, fd);
-		Controller playlist = ControllerFactory.build(ControllerFactory.Type.PLAYLISTS, fd);
+		Controller settings = ControllerFactory.build(ControllerFactory.Type.SETTINGS, fd);
 		Controller favorite = ControllerFactory.build(ControllerFactory.Type.FAVORITES, fd);
 
 		Node homeScene = home.buildScene();
 		Node discoverScene = discover.buildScene();
-		Node playlistScene = playlist.buildScene();
+		Node settingsScene = settings.buildScene();
 		Node favoriteScene = favorite.buildScene();
 
 		// Setup default subscene at the start of application
@@ -137,13 +138,14 @@ public class Main extends Application {
 		// Change subscene with navigation panel
 		homeTarget.setOnMouseClicked((e) -> switchToView(homeScene, home, homeTarget));
 		discoverTarget.setOnMouseClicked((e) -> switchToView(discoverScene, discover, discoverTarget));
-		playlistsTarget.setOnMouseClicked((e) -> switchToView(playlistScene, playlist, playlistsTarget));
+		settingsTarget.setOnMouseClicked((e) -> switchToView(settingsScene, settings, settingsTarget));
 		favoritesTarget.setOnMouseClicked((e) -> switchToView(favoriteScene, favorite, favoritesTarget));
 
 		return navPanel;
     }
 
     public void switchToView(Node nextNode, Controller nextController, VBox target) {
+    	Logger.getInstance().Log("Changing Panel");
 		targets.forEach((t) -> t.setId("dim"));
 		target.setId("");
 		currentController.beforeHide();

@@ -12,50 +12,58 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class TileFragment extends Region {//what to extend?
-    //color of each segment
+import application.LoopingAudioPlayer;
+import application.SpotifyAccessor;
+import application.guis.TileFragment;
+// import application.guis.TrackFragment;
+import application.FavoritesData;
+import application.controller.Controller;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.control.*;
 
-    StackPane boxFrag;
+import java.awt.Dimension;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-    public TileFragment(String title, String description) {
-    //     Circle circle = new Circle(300, 135, 100); 
-    //   circle.setFill(Color.DARKSLATEBLUE); 
-    //   circle.setStroke(Color.BLACK);
-    Rectangle r = new Rectangle();
-        r.setX(50);
-        r.setY(50);
-        r.setWidth(100);
-        r.setHeight(100);
-        r.setArcWidth(20);
-        r.setArcHeight(20);  
-      
-       
-    r.setId("tile");
-      
-    boxFrag = new StackPane(); 
-    Insets i = new Insets(0, 0, 0, 0);
-    
-    
-    VBox boxSubFrag = new VBox();
-    
-    Label titleL = new Label(title);
-    Label descL = new Label(description);
-    boxSubFrag.getChildren().addAll(titleL, descL);
-    boxFrag.setMargin(r, i);
-    boxFrag.getChildren().addAll(r, boxSubFrag); 
-      
-        
-          
+public class TileFragment {
+    public static Button CreateTile(String label, String sublabel, String sublabel2) {
+		Button b1 = new Button();
+		VBox b1TextBox= new VBox();
+		Label b1Label = new Label(label);
+		Label b1Sublabel = new Label(sublabel);
+		Label b1Sublabel2 = new Label(sublabel2);
+		b1Label.setId("tileLabel");
+		b1Sublabel.setId("tileSublabel");
+		b1Sublabel2.setId("tileSublabel");
+		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
+		b1.setGraphic(b1TextBox);
+		b1.setPrefSize(100, 100);
+		
+		return b1;
+	}
 
-        // track info which includes song and artist
-        
+	public static Button CreateRecentFaveTile(String imageUrl, String title, String album, String artist) {
+		Button btn = new Button();
+		HBox btnBox = new HBox();
+		VBox details = new VBox();
 
-        // boxFrag.setPadding(new Insets(5, 5, 5, 5));
-        boxFrag.getStylesheets().add(getClass().getResource("tilefrag.css").toExternalForm());
+		Label lbl = new Label(title);
+		Label subLbl = new Label(album + " - " + artist);
 
-    }
+		ImageView i = new ImageView();
+		i.setImage(new Image(imageUrl));
+		i.setFitWidth(50);
+		i.setPreserveRatio(true);
 
-    public StackPane getFragment(){
-        return boxFrag;
+		lbl.setId("recentFaveLabel");
+		subLbl.setId("recentFaveSubLabel");
+		details.getChildren().addAll(lbl, subLbl);
+		btnBox.getChildren().addAll(i,details);
+		btn.setGraphic(btnBox);
+		btn.setPrefSize(400, 70);		
+		btn.setId("RecentFaveTile");
+		
+		return btn;
     }
 }
