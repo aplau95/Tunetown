@@ -38,7 +38,7 @@
     -fx-font-family: "Verdana";
 }
 #tile3 {
-    -fx-background-color: linear-gradient(#1DA9E8, #68FF8B);
+    -fx-background-color: linear-gradient(#1DA9E8, #2BB673);
     -fx-text-fill: #F2F2F2;
     -fx-font-family: "Verdana";
 }
@@ -46,8 +46,9 @@
 #tileLabel {
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
-    -fx-font-size: 24;
+    -fx-font-size: 18;
     -fx-text-alignment: center ;
+    -fx-padding: 0 0 5 0;
 }
 
 #tileSublabel {
@@ -59,15 +60,16 @@
 #RecentFaveTile{
     -fx-background-color: linear-gradient(#F0EBEC, #BFBBBC);
     -fx-font-family: "Verdana";
+    -fx-padding: 10 0 0 10;
 }
 
 #recentFaveLabel {
     -fx-font-family: "Verdana";
     -fx-font-weight: bold;
-    -fx-font-size: 18;
+    -fx-font-size: 14;
     -fx-text-alignment: center ;
     -fx-text-fill: #212021;
-
+    -fx-padding: 5 0 0 10;
 }
 
 #recentFaveSubLabel {
@@ -75,4 +77,5 @@
     -fx-font-size: 12;
     -fx-text-alignment: center ;
     -fx-text-fill: #212021;
+    -fx-padding: 3 0 0 10;
 }

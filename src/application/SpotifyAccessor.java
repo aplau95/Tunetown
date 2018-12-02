@@ -46,9 +46,7 @@ public class SpotifyAccessor {
 				final Recommendations recommendations = spotifyApi.getRecommendations()
 						.limit(10)
 						.market(CountryCode.US)
-						.max_popularity(65)
-						.min_popularity(10)
-						.seed_genres("pop")
+						.seed_genres("pop, rock")
 						.build()
 						.execute();
 

@@ -41,7 +41,8 @@ public class SquareTile {
         b1Label.setId("tileLabel");
         b1Sublabel.setId("tileSublabel");
         b1Sublabel2.setId("tileSublabel");
-		
+
+        b1TextBox.setAlignment(Pos.CENTER);
 		b1TextBox.getChildren().addAll(b1Label, b1Sublabel, b1Sublabel2);
 		b1.setGraphic(b1TextBox);
 		b1.setPrefSize(100, 100);
