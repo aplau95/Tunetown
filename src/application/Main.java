@@ -1,7 +1,6 @@
 package application;
 
 import application.controller.*;
-import application.FavoritesData;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -9,17 +8,14 @@ import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.geometry.Pos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,14 +31,8 @@ public class Main extends Application {
 		
 		Logger.getInstance().log("Setting up stage");
 
-		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				Platform.exit();
-				System.exit(0);
-			}
-		});
-
+		primaryStage.setOnCloseRequest(event -> {Platform.exit(); System.exit(0);});
+		
 		setupStage(primaryStage);
 	
 	}
@@ -51,7 +41,7 @@ public class Main extends Application {
 
 		// Navigation pane
 
-		Node navPanel = GetNavigationPanel();
+		Node navPanel = getNavigationPanel();
 
 		root.setBottom(navPanel);
 
@@ -61,15 +51,8 @@ public class Main extends Application {
 		Scene scene = new Scene(root,444,800);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-		//Image imgPlay = new Image(getClass().getResourceAsStream("play.png"));
-		//Button btnPlay = new Button();
-		//btnPlay.setGraphic(new ImageView(imgPlay));
-
-		//root.getChildren().add(btnPlay);
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
-		//return;
 	}
 
 	public VBox buildNavTarget(String name) {
@@ -83,7 +66,7 @@ public class Main extends Application {
 		return box;
 	}
 
-    public Node GetNavigationPanel() {
+    public Node getNavigationPanel() {
     	
     	// Buttons
 		VBox homeTarget = buildNavTarget("Home");
@@ -96,28 +79,16 @@ public class Main extends Application {
 
 		targets = Arrays.asList(homeTarget,discoverTarget,settingsTarget,favoritesTarget);
 
-		GridPane navPanel = new GridPane();//,hgap, vgap);
+		GridPane navPanel = new GridPane();
 		navPanel.setAlignment(Pos.CENTER);
 		navPanel.setId("navPanel");
 		navPanel.setPrefHeight(100);
-		navPanel.getColumnConstraints().setAll(
-				new ColumnConstraints() {{
-					setPercentWidth(100/4.0);
-					setHalignment(HPos.CENTER);
-				}},
-				new ColumnConstraints() {{
-					setPercentWidth(100/4.0);
-					setHalignment(HPos.CENTER);
-				}},
-				new ColumnConstraints() {{
-					setPercentWidth(100/4.0);
-					setHalignment(HPos.CENTER);
-				}},
-				new ColumnConstraints() {{
-					setPercentWidth(100/4.0);
-					setHalignment(HPos.CENTER);
-				}}
-		);
+		
+		ColumnConstraints cc = new ColumnConstraints();
+		cc.setPercentWidth(100/4.0);
+		cc.setHalignment(HPos.CENTER);
+		
+		navPanel.getColumnConstraints().setAll(cc,cc,cc,cc);
 		navPanel.add(homeTarget,0,0);
 		navPanel.add(discoverTarget,1,0);
 		navPanel.add(favoritesTarget,2,0);
@@ -148,17 +119,17 @@ public class Main extends Application {
 		currentController = home;
 
 		// Change subscene with navigation panel
-		homeTarget.setOnMouseClicked((e) -> switchToView(homeScene, home, homeTarget));
-		discoverTarget.setOnMouseClicked((e) -> switchToView(discoverScene, discover, discoverTarget));
-		settingsTarget.setOnMouseClicked((e) -> switchToView(settingsScene, settings, settingsTarget));
-		favoritesTarget.setOnMouseClicked((e) -> switchToView(favoriteScene, favorite, favoritesTarget));
+		homeTarget.setOnMouseClicked(e -> switchToView(homeScene, home, homeTarget));
+		discoverTarget.setOnMouseClicked(e -> switchToView(discoverScene, discover, discoverTarget));
+		settingsTarget.setOnMouseClicked(e -> switchToView(settingsScene, settings, settingsTarget));
+		favoritesTarget.setOnMouseClicked(e -> switchToView(favoriteScene, favorite, favoritesTarget));
 
 		return navPanel;
     }
 
     public void switchToView(Node nextNode, Controller nextController, VBox target) {
     	Logger.getInstance().log("Changing Panel");
-		targets.forEach((t) -> t.setId("dim"));
+		targets.forEach(t -> t.setId("dim"));
 		target.setId("");
 		currentController.beforeHide();
 		nextController.beforeShow();
