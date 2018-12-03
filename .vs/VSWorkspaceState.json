@@ -5,7 +5,10 @@
     "\\src\\application",
     "\\src\\application\\controller",
     "\\src\\application\\controller\\Home",
-    "\\src\\application\\controller\\Settings"
+    "\\src\\application\\controller\\Settings",
+    "\\tests",
+    "\\tests\\application",
+    "\\tests\\application\\controller"
   ],
   "SelectedNode": "\\src\\application\\controller\\ControllerFactory.java",
   "PreviewInSolutionExplorer": false
