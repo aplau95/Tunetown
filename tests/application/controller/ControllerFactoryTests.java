@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import application.FavoritesData;
 import application.controller.discover.DiscoverController;
 import application.controller.favorites.FavoritesController;
-import application.controller.Home.HomeController;
-import application.controller.Settings.SettingsController;
-import application.FavoritesData;
+import application.controller.home.HomeController;
+import application.controller.settings.SettingsController;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
