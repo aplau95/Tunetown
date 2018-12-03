@@ -26,6 +26,7 @@ public class HomeController implements Controller {
 	SquareTile st3;
 	Button b3;
 	VBox recentfaveList;
+	String HEADER_LABEL = "headerLabel";
 
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
@@ -49,7 +50,7 @@ public class HomeController implements Controller {
 		topBar = new HBox();
 		topBar.setId("topBar");
 		Label tuneTownL = new Label("TuneTown");
-		tuneTownL.setId("headerLabel");
+		tuneTownL.setId(HEADER_LABEL);
 		topBar.getChildren().addAll(tuneTownL, regionCenter);
 
 		String name = "Dad?";
@@ -58,7 +59,7 @@ public class HomeController implements Controller {
 		Region greetingRegionFiller = new Region();
 		HBox.setHgrow(greetingRegionFiller, Priority.ALWAYS);
 		Label greetingLabel = new Label("Hello, " + name);
-		greetingLabel.setId("headerLabel");
+		greetingLabel.setId(HEADER_LABEL);
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
@@ -82,7 +83,7 @@ public class HomeController implements Controller {
 		VBox recentfaveBox = new VBox();
 		recentfaveBox.setId("greetingBox");
 		Label recentfaveTitle = new Label("Recently Favorited");
-		recentfaveTitle.setId("headerLabel");
+		recentfaveTitle.setId(HEADER_LABEL);
 		
 		
 		// song tiles
