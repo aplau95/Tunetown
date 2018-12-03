@@ -3,6 +3,7 @@ package application;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.function.DoubleFunction;
 
 import javax.sound.sampled.AudioFormat;
@@ -50,12 +51,12 @@ public class LoopingAudioPlayer implements Runnable {
 
 	    }
 	    catch(Exception e) {
-	        Logger.getInstance().log(e.getStackTrace().toString());
+	        Logger.getInstance().log(Arrays.toString((e.getStackTrace())));
 	    }
 	    finally {
 	        if(din != null) {
 	            try { din.close(); } catch(IOException e) {
-	            	Logger.getInstance().log(e.getStackTrace().toString());
+	            	Logger.getInstance().log(Arrays.toString((e.getStackTrace())));
 	            }
 	        }
 	        if(line != null) {
