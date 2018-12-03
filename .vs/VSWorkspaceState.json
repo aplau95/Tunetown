@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\application",
     "\\src\\application\\controller",
+    "\\src\\application\\controller\\Discover",
+    "\\src\\application\\controller\\Favorites",
     "\\src\\application\\controller\\Home",
     "\\src\\application\\controller\\Settings",
     "\\tests",
-    "\\tests\\application",
-    "\\tests\\application\\controller"
+    "\\tests\\application"
   ],
-  "SelectedNode": "\\src\\application\\controller\\ControllerFactory.java",
+  "SelectedNode": "\\src\\application\\Main.java",
   "PreviewInSolutionExplorer": false
 }

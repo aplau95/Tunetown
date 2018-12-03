@@ -1,4 +1,4 @@
-package application.controller.discover;
+package application.controller.Discover;
 
 import application.Logger;
 import application.LoopingAudioPlayer;

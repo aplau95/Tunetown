@@ -1,12 +1,12 @@
 package application;
 
-import org.junit.jupiter.api.Test;
-
 import application.FavoritesData;
 import application.TrackData;
 
-import static org.junit.Assert.*;
+//import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 class TrackDataTests {
 
@@ -41,27 +41,27 @@ class TrackDataTests {
 		String result = td.getImageUrl();
 		assertEquals(result, "www.img.com");
 	}
-/*
+
 	@Test
 	void TestSetGetDuration() {
 		TrackData td = new TrackData(); 
 		td.setDuration(30);
-		Integer result = td.getDuration();
+		int result = td.getDuration();
 		assertEquals(result, 30);
 	}
 	@Test
-	void TestSetGetImageUrl() {
+	void TestSetGetGenre() {
 		TrackData td = new TrackData(); 
-		td.setImageUrl("www.img.com");
+		td.setImageUrl("Pop");
 		String result = td.getImageUrl();
-		assertEquals(result, "www.img.com");
+		assertEquals(result, "Pop");
 	}
 	@Test
-	void TestSetGetImageUrl() {
+	void TestSetGetAlbum() {
 		TrackData td = new TrackData(); 
-		td.setImageUrl("www.img.com");
+		td.setImageUrl("Untitled");
 		String result = td.getImageUrl();
-		assertEquals(result, "www.img.com");
+		assertEquals(result, "Untitled");
 	}
-	*/
+	
 }
