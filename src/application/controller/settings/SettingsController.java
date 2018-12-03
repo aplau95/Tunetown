@@ -19,8 +19,8 @@ public class SettingsController implements Controller {
 
 	FavoritesData fd;
 
-	String SUBHEADER_CSS = "Subheader";
-	String DESCRIPTION_CSS = "Description";
+	String subheaderCSS = "Subheader";
+	String descriptionCSS = "Description";
 	VBox root;
 	int faveGenres = 0;
 
@@ -57,9 +57,9 @@ public class SettingsController implements Controller {
 		nameBox.setSpacing(10);
 		nameBox.setId("Node");
 		Label nameSH = new Label("Name");
-		nameSH.setId(SUBHEADER_CSS);
+		nameSH.setId(subheaderCSS);
 		Label nameD = new Label("You name will only be used in the app");
-		nameD.setId(DESCRIPTION_CSS);
+		nameD.setId(descriptionCSS);
 
 		HBox nameEdit = new HBox();
 		nameEdit.setSpacing(10);
@@ -80,9 +80,9 @@ public class SettingsController implements Controller {
 		genreBox.setSpacing(10);
 		genreBox.setId("Node");
 		Label genreSH = new Label("Favorite Genres");
-		genreSH.setId(SUBHEADER_CSS);
+		genreSH.setId(subheaderCSS);
 		Label genreD = new Label("Used to tailor recommendations to your taste");
-		genreD.setId(DESCRIPTION_CSS);
+		genreD.setId(descriptionCSS);
 
 		VBox genreList = new VBox();
 		genreList.setSpacing(10);
@@ -113,10 +113,10 @@ public class SettingsController implements Controller {
 		popBox.setSpacing(10);
 		popBox.setId("Node");
 		Label popSH = new Label ("Popularity");
-		popSH.setId(SUBHEADER_CSS);
+		popSH.setId(subheaderCSS);
 		Label popD = new Label("A low popularity will recommend rarer songs while a high value will recommend recent popular songs");
 		popD.setWrapText(true);
-		popD.setId(DESCRIPTION_CSS);
+		popD.setId(descriptionCSS);
 
 		Slider popSlider = new Slider(0, 100, 50);
 		popSlider.setShowTickMarks(true);
