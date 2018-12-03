@@ -28,7 +28,7 @@ public class LoopingAudioPlayer implements Runnable {
 	@Override
 	public void run() {
 		
-		Logger.getInstance().Log("Play music");
+		Logger.getInstance().log("Play music");
 		AudioInputStream din = null;
 		SourceDataLine line = null;
 		
@@ -50,12 +50,12 @@ public class LoopingAudioPlayer implements Runnable {
 
 	    }
 	    catch(Exception e) {
-	        Logger.getInstance().Log(e.getStackTrace().toString());
+	        Logger.getInstance().log(e.getStackTrace().toString());
 	    }
 	    finally {
 	        if(din != null) {
 	            try { din.close(); } catch(IOException e) {
-	            	Logger.getInstance().Log(e.getStackTrace().toString());
+	            	Logger.getInstance().log(e.getStackTrace().toString());
 	            }
 	        }
 	        if(line != null) {

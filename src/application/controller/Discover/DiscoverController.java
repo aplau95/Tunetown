@@ -52,7 +52,7 @@ public class DiscoverController implements Controller {
 			spotify = new SpotifyAccessor();
 			currentTrack = spotify.getNextRecommendation();
 		} catch (Exception e) {
-			Logger.getInstance().Log("Failed to connect to spotify");
+			Logger.getInstance().log("Failed to connect to spotify");
 		}
 	}
 
@@ -152,7 +152,7 @@ public class DiscoverController implements Controller {
 			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException ex) {
-	    	Logger.getInstance().Log("Error");
+	    	Logger.getInstance().log("Error");
 		}
 	}
 
@@ -190,7 +190,7 @@ public class DiscoverController implements Controller {
 			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException e) {
-	    	Logger.getInstance().Log("Error: " + e.getMessage());
+	    	Logger.getInstance().log("Error: " + e.getMessage());
 		}
 	}
 

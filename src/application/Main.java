@@ -33,7 +33,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		
-		Logger.getInstance().Log("Setting up stage");
+		Logger.getInstance().log("Setting up stage");
 
 		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			@Override
@@ -157,7 +157,7 @@ public class Main extends Application {
     }
 
     public void switchToView(Node nextNode, Controller nextController, VBox target) {
-    	Logger.getInstance().Log("Changing Panel");
+    	Logger.getInstance().log("Changing Panel");
 		targets.forEach((t) -> t.setId("dim"));
 		target.setId("");
 		currentController.beforeHide();
