@@ -3,6 +3,8 @@ package application;
 import application.controller.*;
 import application.FavoritesData;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
@@ -11,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -31,6 +34,15 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		
 		Logger.getInstance().Log("Setting up stage");
+
+		primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+			@Override
+			public void handle(WindowEvent event) {
+				Platform.exit();
+				System.exit(0);
+			}
+		});
+
 		setupStage(primaryStage);
 	
 	}
