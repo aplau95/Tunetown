@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 public class HomeController implements Controller {
 
 	FavoritesData fd;
+	String headerLabel = "headerLabel";
 
 	HBox topBar;
 	HBox tileList;
@@ -49,7 +50,7 @@ public class HomeController implements Controller {
 		topBar = new HBox();
 		topBar.setId("topBar");
 		Label tuneTownL = new Label("TuneTown");
-		tuneTownL.setId("headerLabel");
+		tuneTownL.setId(headerLabel);
 		topBar.getChildren().addAll(tuneTownL, regionCenter);
 
 		String name = "Dad?";
@@ -58,7 +59,7 @@ public class HomeController implements Controller {
 		Region greetingRegionFiller = new Region();
 		HBox.setHgrow(greetingRegionFiller, Priority.ALWAYS);
 		Label greetingLabel = new Label("Hello, " + name);
-		greetingLabel.setId("headerLabel");
+		greetingLabel.setId(headerLabel);
 		greetingBox.getChildren().addAll(greetingLabel, greetingRegionFiller);
 
 		// tile instances
@@ -82,7 +83,7 @@ public class HomeController implements Controller {
 		VBox recentfaveBox = new VBox();
 		recentfaveBox.setId("greetingBox");
 		Label recentfaveTitle = new Label("Recently Favorited");
-		recentfaveTitle.setId("headerLabel");
+		recentfaveTitle.setId(headerLabel);
 		
 		
 		// song tiles
@@ -136,10 +137,7 @@ public class HomeController implements Controller {
 			} else if (fd.numberOfFavorites() == 1) {
 				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 1);
 				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
-			} else {
-	
 			}
-			
 	}
 
 	/**
