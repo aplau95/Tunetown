@@ -2,21 +2,23 @@
 package application;
 
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.OutputStreamWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 public class Logger {
 	private static Logger instance;
 	private static PrintWriter out;
 	
+	static {
+		try {
+			out = new PrintWriter(new FileOutputStream("logs/log.txt"));
+		} catch (FileNotFoundException e) {
+			// drop the exception, we just won't have a logger
+		}
+	}
+	
 	private Logger()
 	{
-		try {
-            out = new PrintWriter(new OutputStreamWriter(System.out, "UTF-8"), true);
-        }
-        catch (UnsupportedEncodingException e) {
-            System.out.println(e);
-        }
 	}
 	
 	public static synchronized Logger getInstance()
