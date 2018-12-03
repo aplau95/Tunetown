@@ -2,8 +2,8 @@ package application.controller;
 
 import application.controller.discover.DiscoverController;
 import application.controller.favorites.FavoritesController;
-import application.controller.Home.HomeController;
-import application.controller.Settings.SettingsController;
+import application.controller.home.HomeController;
+import application.controller.settings.SettingsController;
 import application.FavoritesData;
 
 public class ControllerFactory {

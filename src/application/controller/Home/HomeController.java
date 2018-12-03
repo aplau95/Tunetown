@@ -1,4 +1,4 @@
-package application.controller.Home;
+package application.controller.home;
 
 import application.guis.SquareTile;
 import application.guis.TileFragment;
@@ -124,18 +124,18 @@ public class HomeController implements Controller {
 				TrackData temp2 = fd.getAt(fd.numberOfFavorites() - 2);
 				TrackData temp3 = fd.getAt(fd.numberOfFavorites() - 1);
 				recentfaveList.getChildren().clear();
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp3.getImageUrl(), temp3.getName(), temp3.getAlbum(), temp3.getArtists()));
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));				
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp3.getImageUrl(), temp3.getName(), temp3.getAlbum(), temp3.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));				
 			} else if (fd.numberOfFavorites() == 2) {
 				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 2);
 				TrackData temp2 = fd.getAt(fd.numberOfFavorites() - 1);
 				recentfaveList.getChildren().clear();
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp2.getImageUrl(), temp2.getName(), temp2.getAlbum(), temp2.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
 			} else if (fd.numberOfFavorites() == 1) {
 				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 1);
-				recentfaveList.getChildren().add(TileFragment.CreateRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
+				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
 			} else {
 	
 			}

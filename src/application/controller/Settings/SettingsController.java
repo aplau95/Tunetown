@@ -1,4 +1,4 @@
-package application.controller.Settings;
+package application.controller.settings;
 
 import application.LoopingAudioPlayer;
 import application.SpotifyAccessor;

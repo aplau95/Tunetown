@@ -110,7 +110,7 @@ public class FavoritesController implements Controller {
 									td.getName().toLowerCase().contains(searchText.toLowerCase()) ||
 									td.getGenre().toLowerCase().contains(searchText.toLowerCase()))
 						.map((TrackData td) ->
-								TileFragment.CreateRecentFaveTile(td.getImageUrl(), td.getName(), td.getAlbum(), td.getArtists()))
+								TileFragment.createRecentFaveTile(td.getImageUrl(), td.getName(), td.getAlbum(), td.getArtists()))
 						.collect(Collectors.toList());
 
 				pause.setOnFinished(pauseEvent -> {
