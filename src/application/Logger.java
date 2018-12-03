@@ -1,9 +1,7 @@
 // singleton design pattern
 package application;
 
-import java.io.PrintWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import java.io.*;
 
 public class Logger {
 	private static Logger instance;
@@ -11,9 +9,13 @@ public class Logger {
 	
 	static {
 		try {
-			out = new PrintWriter(new FileOutputStream("logs/log.txt"));
-		} catch (FileNotFoundException e) {
+			File logFile = new File("logs/log.txt");
+			logFile.getParentFile().mkdirs();
+			logFile.createNewFile(); // if file already exists will do nothing
+			out = new PrintWriter(new FileOutputStream(logFile));
+		} catch (IOException e) {
 			// drop the exception, we just won't have a logger
+			e.printStackTrace();
 		}
 	}
 	
