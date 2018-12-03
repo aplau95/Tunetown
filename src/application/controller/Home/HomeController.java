@@ -1,7 +1,5 @@
 package application.controller.Home;
 
-import application.LoopingAudioPlayer;
-import application.SpotifyAccessor;
 import application.guis.SquareTile;
 import application.guis.TileFragment;
 import application.FavoritesData;
@@ -10,21 +8,13 @@ import application.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-
-import java.awt.Dimension;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class HomeController implements Controller {
 
 	FavoritesData fd;
-
-	// TrackFragment track1;
-	// TrackFragment track2;
-	// TrackFragment track3;
 
 	HBox topBar;
 	HBox tileList;
@@ -37,12 +27,9 @@ public class HomeController implements Controller {
 	Button b3;
 	VBox recentfaveList;
 
-	
-
 	ExecutorService executorService = Executors.newFixedThreadPool(2);
 
 	public HomeController(FavoritesData fd) {
-		this.fd = fd;
 		try {
 			this.fd = fd;
 		} catch (Exception e) {
@@ -94,27 +81,16 @@ public class HomeController implements Controller {
 		// Recently favorited list
 		VBox recentfaveBox = new VBox();
 		recentfaveBox.setId("greetingBox");
-		//Region recentfaveRegionFiller = new Region();		// what're these used for?
-		//HBox.setHgrow(recentfaveRegionFiller, Priority.ALWAYS);
 		Label recentfaveTitle = new Label("Recently Favorited");
 		recentfaveTitle.setId("headerLabel");
 		
 		
 		// song tiles
 		recentfaveList = new VBox();
-		// recentfaveList.getChildren().addAll(
-		// 		// TileFragment.CreateRecentFaveTile("I Feel It Coming", "Starboy", "The Weeknd"), 
-		// 		// TileFragment.CreateRecentFaveTile("Controlla", "Views", "Drake"), 
-		// 		// TileFragment.CreateRecentFaveTile("Look What You Made Me Do", "Reputation", "Taylor Swift")
-		// 		);
 		recentfaveList.setSpacing(20.0);
 		recentfaveBox.getChildren().addAll(recentfaveTitle, recentfaveList);
 		recentfaveBox.setSpacing(20.0);
-
-		
-		
-
-		
+	
 		root.getChildren().addAll(
 		topBar,
 		greetingBox,
@@ -173,6 +149,7 @@ public class HomeController implements Controller {
 	 */
 	@Override
 	public void beforeHide() {
+		//Implement if necessary
 	}
 
 	/**
