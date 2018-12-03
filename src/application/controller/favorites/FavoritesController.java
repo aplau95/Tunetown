@@ -75,9 +75,9 @@ public class FavoritesController implements Controller {
 		searchBar.setPromptText("Search by Song Name, Artist, or Genre...");
 		HBox.setHgrow(searchBar, Priority.ALWAYS);
 		searchBox.getChildren().addAll(regionLeft,searchBar,regionRight);
-		searchBar.textProperty().addListener((obs, oldText, newText) -> {
-			this.onSearch(newText);
-		});
+		searchBar.textProperty().addListener((obs, oldText, newText) -> 
+			this.onSearch(newText)
+		);
 
 		searchResults = new VBox();
 		searchResults.setAlignment(Pos.TOP_CENTER);
@@ -113,12 +113,12 @@ public class FavoritesController implements Controller {
 								TileFragment.createRecentFaveTile(td.getImageUrl(), td.getName(), td.getAlbum(), td.getArtists()))
 						.collect(Collectors.toList());
 
-				pause.setOnFinished(pauseEvent -> {
+				pause.setOnFinished(pauseEvent -> 
 					Platform.runLater(() -> {
 						searchResults.getChildren().clear();
 						searchResults.getChildren().addAll(results);
-					});
-				});
+					})
+				);
 				pause.playFromStart();
 
 			}));

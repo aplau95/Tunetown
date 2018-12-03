@@ -169,6 +169,7 @@ public class SettingsController implements Controller {
 	 */
 	@Override
 	public void afterShow() {
+		//Implement if necessary
 	}
 
 	/**
