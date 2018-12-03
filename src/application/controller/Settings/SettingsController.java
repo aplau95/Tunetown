@@ -1,38 +1,26 @@
 package application.controller.settings;
 
-import application.LoopingAudioPlayer;
-import application.SpotifyAccessor;
 import application.FavoritesData;
-import application.TrackData;
 import application.controller.Controller;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Slider;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.*;
-
-
 
 public class SettingsController implements Controller {
 
 	FavoritesData fd;
 
+	String SUBHEADER_CSS = "Subheader";
+	String DESCRIPTION_CSS = "Description";
 	VBox root;
 	int faveGenres = 0;
 
@@ -40,7 +28,6 @@ public class SettingsController implements Controller {
 
 
 	public SettingsController(FavoritesData fd) {
-		this.fd = fd;
 		try {
 			this.fd = fd;
 		} catch (Exception e) {
@@ -69,12 +56,10 @@ public class SettingsController implements Controller {
 		VBox nameBox = new VBox();
 		nameBox.setSpacing(10);
 		nameBox.setId("Node");
-		//nameBox.setPadding(new Insets(0, 50, 0, 50));
-		//nameBox.setSpacing(10);
 		Label nameSH = new Label("Name");
-		nameSH.setId("Subheader");
+		nameSH.setId(SUBHEADER_CSS);
 		Label nameD = new Label("You name will only be used in the app");
-		nameD.setId("Description");
+		nameD.setId(DESCRIPTION_CSS);
 
 		HBox nameEdit = new HBox();
 		nameEdit.setSpacing(10);
@@ -95,9 +80,9 @@ public class SettingsController implements Controller {
 		genreBox.setSpacing(10);
 		genreBox.setId("Node");
 		Label genreSH = new Label("Favorite Genres");
-		genreSH.setId("Subheader");
+		genreSH.setId(SUBHEADER_CSS);
 		Label genreD = new Label("Used to tailor recommendations to your taste");
-		genreD.setId("Description");
+		genreD.setId(DESCRIPTION_CSS);
 
 		VBox genreList = new VBox();
 		genreList.setSpacing(10);
@@ -128,10 +113,10 @@ public class SettingsController implements Controller {
 		popBox.setSpacing(10);
 		popBox.setId("Node");
 		Label popSH = new Label ("Popularity");
-		popSH.setId("Subheader");
+		popSH.setId(SUBHEADER_CSS);
 		Label popD = new Label("A low popularity will recommend rarer songs while a high value will recommend recent popular songs");
 		popD.setWrapText(true);
-		popD.setId("Description");
+		popD.setId(DESCRIPTION_CSS);
 
 		Slider popSlider = new Slider(0, 100, 50);
 		popSlider.setShowTickMarks(true);
@@ -184,20 +169,6 @@ public class SettingsController implements Controller {
 	 */
 	@Override
 	public void afterShow() {
-
-		// try {
-
-		// 	player = new LoopingAudioPlayer(new URL(currentTrack.getPreviewUrl()),this::onTime);
-		// 	executorService.submit(player);
-
-		// 	albumI.setImage(new Image(currentTrack.getImageUrl()));
-		// 	songNameL.setText(currentTrack.getName());
-		// 	artistL.setText(currentTrack.getArtists());
-		// 	genreB.setText(currentTrack.getGenre());
-
-		// } catch(MalformedURLException e) {
-		// 	System.out.println("Error " + e);
-		// }
 	}
 
 	/**
@@ -207,6 +178,7 @@ public class SettingsController implements Controller {
 	 */
 	@Override
 	public void beforeHide() {
+		//Implement if necessary
 	}
 
 	/**
