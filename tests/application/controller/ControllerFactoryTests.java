@@ -3,8 +3,8 @@ package application.controller;
 import org.junit.jupiter.api.Test;
 
 import application.FavoritesData;
-import application.controller.Discover.DiscoverController;
-import application.controller.Favorites.FavoritesController;
+import application.controller.discover.DiscoverController;
+import application.controller.favorites.FavoritesController;
 import application.controller.Home.HomeController;
 import application.controller.Settings.SettingsController;
 import application.FavoritesData;
