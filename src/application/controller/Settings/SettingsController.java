@@ -1,11 +1,8 @@
 package application.controller.Settings;
 
-import application.LoopingAudioPlayer;
-import application.SpotifyAccessor;
+
 import application.FavoritesData;
-import application.TrackData;
 import application.controller.Controller;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
