@@ -1,4 +1,4 @@
-package application.controller.Discover;
+package application.controller.discover;
 
 import application.Logger;
 import application.LoopingAudioPlayer;
@@ -133,7 +133,7 @@ public class DiscoverController implements Controller {
 			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException ex) {
-			System.out.println("Error");
+			Logger.getInstance().log("Dislike Error");
 		}
 	}
 
@@ -152,7 +152,7 @@ public class DiscoverController implements Controller {
 			genreB.setText(currentTrack.getGenre());
 
 		} catch(MalformedURLException ex) {
-	    	Logger.getInstance().log("Error");
+	    	Logger.getInstance().log("Like Error");
 		}
 	}
 
