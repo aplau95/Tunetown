@@ -6,7 +6,6 @@ import application.controller.Controller;
 import application.guis.TileFragment;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
