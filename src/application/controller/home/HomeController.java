@@ -136,6 +136,7 @@ public class HomeController implements Controller {
 				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
 			} else if (fd.numberOfFavorites() == 1) {
 				TrackData temp1 = fd.getAt(fd.numberOfFavorites() - 1);
+				recentfaveList.getChildren().clear();
 				recentfaveList.getChildren().add(TileFragment.createRecentFaveTile(temp1.getImageUrl(), temp1.getName(), temp1.getAlbum(), temp1.getArtists()));
 			}
 	}
