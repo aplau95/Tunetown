@@ -95,10 +95,10 @@ public class SettingsController implements Controller {
 		genreEdit.getChildren().addAll(genreIn, genreSave);
 		
 		genreList.getChildren().addAll(
-			AddNewGenre("Pop"),
-			AddNewGenre("Hip Hop"),
-			AddNewGenre("Alternatic Rock"),
-			AddNewGenre("Electronic"),
+			addNewGenre("Pop"),
+			addNewGenre("Hip Hop"),
+			addNewGenre("Alternatic Rock"),
+			addNewGenre("Electronic"),
 			genreEdit
 		);
 
@@ -142,7 +142,7 @@ public class SettingsController implements Controller {
 		return root;
 	}
 
-	public HBox AddNewGenre(String gName) {
+	public HBox addNewGenre(String gName) {
 		HBox genre = new HBox();
 		genre.setSpacing(10);
 		ImageView deleteIcon = new ImageView();
