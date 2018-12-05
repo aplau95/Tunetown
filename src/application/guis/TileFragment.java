@@ -10,6 +10,10 @@ import javafx.scene.control.*;
 
 public class TileFragment {
 
+	private TileFragment() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static Button createRecentFaveTile(String imageUrl, String title, String album, String artist) {
 		Button btn = new Button();
 		HBox btnBox = new HBox();

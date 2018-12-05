@@ -2,6 +2,7 @@ package application.controller.home;
 
 import application.guis.SquareTile;
 import application.guis.TileFragment;
+import application.Logger;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
@@ -34,7 +35,7 @@ public class HomeController implements Controller {
 		try {
 			this.fd = fd;
 		} catch (Exception e) {
-			System.out.println("Failed to connect to spotify");
+			Logger.getInstance().log("Failed to connect to spotify");
 		}
 	}
 

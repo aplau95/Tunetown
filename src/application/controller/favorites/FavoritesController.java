@@ -1,7 +1,6 @@
 package application.controller.favorites;
 
 import application.FavoritesData;
-import application.TrackData;
 import application.controller.Controller;
 import application.guis.TileFragment;
 import javafx.animation.PauseTransition;
@@ -27,14 +26,14 @@ import java.util.stream.Collectors;
 
 public class FavoritesController implements Controller {
 
-	FavoritesData fd;
-	Button numLikedB;
-	VBox searchResults;
-	CustomTextField searchBar;
+	private FavoritesData fd;
+	private Button numLikedB;
+	private VBox searchResults;
+	private CustomTextField searchBar;
 
-	ExecutorService executorService = Executors.newFixedThreadPool(5);
+	private ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-	PauseTransition pause = new PauseTransition(Duration.millis(250));
+	private PauseTransition pause = new PauseTransition(Duration.millis(250));
 
 	public FavoritesController(FavoritesData fd) {
 		this.fd = fd;
@@ -103,16 +102,11 @@ public class FavoritesController implements Controller {
 		pause.setOnFinished(event ->
 			executorService.submit(() -> {
 
-				List<Node> results = fd.getFavoritesList().stream()
-						.filter((TrackData td) ->
-								td.getArtists().toLowerCase().contains(searchText.toLowerCase()) ||
-									td.getName().toLowerCase().contains(searchText.toLowerCase()) ||
-									td.getGenre().toLowerCase().contains(searchText.toLowerCase()))
-						.map((TrackData td) ->
-								TileFragment.createRecentFaveTile(td.getImageUrl(), td.getName(), td.getAlbum(), td.getArtists()))
+				List<Node> results = fd.search(searchText).stream()
+						.map(td -> TileFragment.createRecentFaveTile(td.getImageUrl(), td.getName(), td.getAlbum(), td.getArtists()))
 						.collect(Collectors.toList());
 
-				pause.setOnFinished(pauseEvent -> 
+				pause.setOnFinished(pauseEvent ->
 					Platform.runLater(() -> {
 						searchResults.getChildren().clear();
 						searchResults.getChildren().addAll(results);
