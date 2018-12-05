@@ -3,7 +3,7 @@ import java.util.*;
 
 public class FavoritesData {
 
-    private Stack<TrackData> favoritesList = new Stack<TrackData>();
+    private LinkedList<TrackData> favoritesList = new LinkedList<TrackData>(); 
     Integer totalDuration = 0;
 
     public FavoritesData(){
@@ -18,12 +18,12 @@ public class FavoritesData {
     }
 
     public TrackData peek(){
-        return favoritesList.peek();
+        return favoritesList.get(0);
     }
     
     public void addToFavorites(TrackData track){
         totalDuration += track.getDuration();
-        favoritesList.push(track);
+        favoritesList.addLast(track);
     }
 
     public Integer numberOfFavorites(){
@@ -34,7 +34,7 @@ public class FavoritesData {
         return totalDuration;
     }
 
-    public Stack<TrackData> getFavoritesList() {
+    public List<TrackData> getFavoritesList() {
         return favoritesList;
     }
 
