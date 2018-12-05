@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import application.ApplicationTestSuite;
+import application.AudioTestSuite;
 import application.controller.ControllerTestSuite;
 import application.guis.ApplicationGUISTestSuite;
 
@@ -12,7 +13,8 @@ import application.guis.ApplicationGUISTestSuite;
 @SuiteClasses({
 	ApplicationTestSuite.class,
 	ControllerTestSuite.class,
-	ApplicationGUISTestSuite.class
+	ApplicationGUISTestSuite.class,
+	AudioTestSuite.class
 })
 public class AllTests {
 
