@@ -34,7 +34,7 @@ public class HomeController implements Controller {
 		try {
 			this.fd = fd;
 		} catch (Exception e) {
-			System.out.println("Failed to connect to spotify");
+			Logger.getInstance().log("Failed to connect to spotify");
 		}
 	}
 

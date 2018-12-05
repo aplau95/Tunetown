@@ -1,6 +1,7 @@
 package application.controller.settings;
 
 import application.FavoritesData;
+import application.Logger;
 import application.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -31,25 +32,24 @@ public class SettingsController implements Controller {
 		try {
 			this.fd = fd;
 		} catch (Exception e) {
-			System.out.println("Failed to connect to spotify");
+			Logger.getInstance().log("Failed to connect to spotify");
 		}
 	}
 
 	@Override
 	public Node buildScene() {
-
 		root = new VBox();
+		HBox topBar = new HBox();
+		Label settingsL = new Label("Settings");
 		root.setId("root");
+		
+
 
 		// Heading
 		Region regionCenter = new Region();
 		HBox.setHgrow(regionCenter, Priority.ALWAYS);
-
-		HBox topBar = new HBox();
 		topBar.setId("Node");
-		Label settingsL = new Label("Settings");
 		settingsL.setId("Header");
-	
 		topBar.getChildren().addAll(settingsL, regionCenter);
 
 		// Name
