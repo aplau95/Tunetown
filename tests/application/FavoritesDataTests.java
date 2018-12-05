@@ -121,4 +121,36 @@ class FavoritesDataTests {
 
 		assertEquals(100, fd.search("test").size());
 	}
+
+	@Test
+	void testSimpleSearchLoop0() {
+		FavoritesData fd = new FavoritesData();
+		assertEquals(0, fd.searchNames("test").size());
+	}
+
+	@Test
+	void testSimpleSearchLoop1() {
+		FavoritesData fd = new FavoritesData();
+
+		TrackData sample1 = new TrackData();
+		sample1.setName("test");
+		sample1.setDuration(10);
+		fd.addToFavorites(sample1);
+
+		assertEquals(1, fd.searchNames("test").size());
+	}
+
+	@Test
+	void testSimpleSearchLoopN() {
+		FavoritesData fd = new FavoritesData();
+
+		for(int i = 0; i < 100; i++) {
+			TrackData sample = new TrackData();
+			sample.setName("test"+i);
+			sample.setDuration(i);
+			fd.addToFavorites(sample);
+		}
+
+		assertEquals(100, fd.searchNames("test").size());
+	}
 }
