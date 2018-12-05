@@ -9,6 +9,7 @@ import application.controller.favorites.FavoritesControllerTests;
 import application.controller.home.HomeControllerTests;
 import application.controller.settings.SettingsControllerTests;
 
+//Created by: Kevin Vincent
 @RunWith(Suite.class)
 @SuiteClasses({
 	ControllerFactoryTests.class,

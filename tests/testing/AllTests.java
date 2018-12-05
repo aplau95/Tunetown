@@ -9,6 +9,7 @@ import application.AudioTestSuite;
 import application.controller.ControllerTestSuite;
 import application.guis.ApplicationGUISTestSuite;
 
+//Created by: Alex Gata
 @RunWith(Suite.class)
 @SuiteClasses({
 	ApplicationTestSuite.class,
