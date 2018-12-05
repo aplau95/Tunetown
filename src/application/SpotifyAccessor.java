@@ -66,7 +66,15 @@ public class SpotifyAccessor {
 					td.setDuration(t.getDurationMs());
 					td.setAlbum(t.getAlbum().getName());
 					td.setArtists(Arrays.stream(t.getArtists()).map(ArtistSimplified::getName).collect(Collectors.joining(", ")));
-					td.setImageUrl(Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth)).get().getUrl());
+
+					Optional<Image> image = Arrays.stream(t.getAlbum().getImages()).max(Comparator.comparingInt(com.wrapper.spotify.model_objects.specification.Image::getWidth));
+
+					if(image.isPresent()) {
+						td.setImageUrl(image.get().getUrl());
+					} else {
+						td.setImageUrl("https://via.placeholder.com/300");
+					}
+
 					td.setGenre(a.getGenres()[0]);
 					
 					return td;
