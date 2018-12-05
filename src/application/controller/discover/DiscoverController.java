@@ -67,7 +67,7 @@ public class DiscoverController implements Controller {
 
 		HBox topBar = new HBox();
 		topBar.setId("topBar");
-		Label discoverL = new Label("discover");
+		Label discoverL = new Label("Discover");
 		discoverL.setId("discoverLabel");
 		genreB = new Button(currentTrack.getGenre());
 		genreB.setId("genreButton");
