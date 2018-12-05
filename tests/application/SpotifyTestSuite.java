@@ -6,8 +6,8 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({
-	LoopingAudioPlayerTests.class
+	SpotifyAccessorTests.class
 })
-public class AudioTestSuite {
+public class SpotifyTestSuite {
 
 }

@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FavoritesDataTests {
 
 	// Integration Test
+	// Chanelle Mosquera
 	@Test
 	void testGetRecommendation() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -18,6 +19,7 @@ class FavoritesDataTests {
 	}
 	
 	// Integration Test
+	// Chanelle Mosquera
 	@Test
 	void testNumberOfFavorites() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -25,20 +27,39 @@ class FavoritesDataTests {
 		TrackData c = spotify.getNextRecommendation();
 		
 		fd.addToFavorites(c);
+		fd.addToFavorites(spotify.getNextRecommendation());
+		fd.addToFavorites(spotify.getNextRecommendation());
+		fd.addToFavorites(spotify.getNextRecommendation());
+		int num = fd.numberOfFavorites();
+		assertEquals(num, 4);
+	}
+	
+	// Integration Test
+	// Oliver Curry
+	@Test
+	void testNumberOfFavorites2() {
+		SpotifyAccessor spotify = new SpotifyAccessor();
+		FavoritesData fd = new FavoritesData();
+		TrackData c = spotify.getNextRecommendation();
+
+		fd.addToFavorites(c);
 		int num = fd.numberOfFavorites();
 		assertEquals(num, 1);
 	}
 	
 	// Unit Test
+	// Oliver Curry
 	@Test
 	void testNumberOfMinutes() {
 		FavoritesData fd = new FavoritesData();
+		
 		fd.totalDuration = 5;
 		int result = fd.totalDuration;
 		assertEquals(result, 5);
 	}
 	
 	// Integration Test
+	// Brandon Luong
 	@Test
 	void testAddToFavorites() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -51,6 +72,7 @@ class FavoritesDataTests {
 	}
 
 	// Integration Test
+	// Alex Gata
 	@Test
 	void testPeek() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -63,6 +85,21 @@ class FavoritesDataTests {
 	}
 	
 	// Integration Test
+	// Brandon Luong
+	@Test
+	void testPeek2() {
+		SpotifyAccessor spotify = new SpotifyAccessor();
+		FavoritesData fd = new FavoritesData();
+		TrackData c = spotify.getNextRecommendation();
+		
+		fd.addToFavorites(c);
+		fd.addToFavorites(spotify.getNextRecommendation());
+		TrackData td = fd.peek();
+		assertEquals(td, c);
+	}
+	
+	// Integration Test
+	// Alex Gata
 	@Test
 	void testGetNextSong() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -74,11 +111,16 @@ class FavoritesDataTests {
 		assertEquals(td, c);
 	}
 	
-	// Unit Test
+	// Integration Test
+	// Kevin Vincent
 	@Test
 	void  testGetFavoritesList() {
-		FavoritesData fd = new FavoritesData();		
-		assertEquals(0, fd.getFavoritesList().size());
+		SpotifyAccessor spotify = new SpotifyAccessor();
+		FavoritesData fd = new FavoritesData();
+		TrackData c = spotify.getNextRecommendation();
+		fd.addToFavorites(c);	
+		
+		assertEquals(1, fd.getFavoritesList().size());
 	}
 
 	// Loop Test #1
