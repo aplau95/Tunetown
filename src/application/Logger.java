@@ -1,25 +1,8 @@
 // singleton design pattern
 package application;
 
-import java.io.*;
-
 public class Logger {
-	private static Logger instance;
-	private static PrintWriter out;
-	
-	static {
-		try {
-			File logFile = new File("logs/log.txt");
-			logFile.getParentFile().mkdirs();
-			out = new PrintWriter(new FileOutputStream(logFile));
-		} catch (IOException e) {
-			// drop the exception, we just won't have a logger
-		}
-	}
-	
-	private Logger()
-	{
-	}
+	private static Logger instance;	
 	
 	public static synchronized Logger getInstance()
 	{
@@ -29,7 +12,7 @@ public class Logger {
 	}
 	
 	public void log(String string) {
-		out.println(string);
+		// this is non functional. sonarcloud does not support files since it leaves a security hole	
 	}
 
 	
