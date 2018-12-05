@@ -11,10 +11,17 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 
 public class DiscoverControllerTests {
+	
+	@BeforeAll
+	public static void init() {
+		JFXPanel jp = new JFXPanel();
+		jp.validate();
+	}
 
 	@Test
 	void testBuildScene() {
 		DiscoverController dc = new DiscoverController(new FavoritesData());
+		
 		assertThat(dc.buildScene(), instanceOf(Node.class));
 	}
 
