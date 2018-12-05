@@ -2,6 +2,7 @@ package application.controller.home;
 
 import application.guis.SquareTile;
 import application.guis.TileFragment;
+import application.Logger;
 import application.FavoritesData;
 import application.TrackData;
 import application.controller.Controller;
