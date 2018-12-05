@@ -59,4 +59,21 @@ public class FavoritesData {
 
     }
 
+    public List<TrackData> searchNames(String searchText) {
+
+        List<TrackData> results = new ArrayList<>();
+
+        Iterator favoritesIterator = favoritesList.iterator();
+
+        while(favoritesIterator.hasNext()) {
+            TrackData td = (TrackData) favoritesIterator.next();
+            if(td.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                results.add(td);
+            }
+        }
+
+        return results;
+
+    }
+
 }
