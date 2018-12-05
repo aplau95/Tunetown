@@ -9,7 +9,7 @@ import application.FavoritesData;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 
-class SettingsControllerTests {
+public class SettingsControllerTests {
 	
 	@BeforeAll
 	public static void init() {
