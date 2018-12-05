@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FavoritesDataTests {
 
+	// Integration Test
 	@Test
 	void testGetRecommendation() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -16,6 +17,7 @@ class FavoritesDataTests {
 		assertThat(c, instanceOf(TrackData.class));
 	}
 	
+	// Integration Test
 	@Test
 	void testNumberOfFavorites() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -27,6 +29,7 @@ class FavoritesDataTests {
 		assertEquals(num, 1);
 	}
 	
+	// Unit Test
 	@Test
 	void testNumberOfMinutes() {
 		FavoritesData fd = new FavoritesData();
@@ -35,6 +38,7 @@ class FavoritesDataTests {
 		assertEquals(result, 5);
 	}
 	
+	// Integration Test
 	@Test
 	void testAddToFavorites() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -46,6 +50,7 @@ class FavoritesDataTests {
 		assertEquals(td, c);
 	}
 
+	// Integration Test
 	@Test
 	void testPeek() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -57,6 +62,7 @@ class FavoritesDataTests {
 		assertEquals(td, c);
 	}
 	
+	// Integration Test
 	@Test
 	void testGetNextSong() {
 		SpotifyAccessor spotify = new SpotifyAccessor();
@@ -68,18 +74,21 @@ class FavoritesDataTests {
 		assertEquals(td, c);
 	}
 	
+	// Unit Test
 	@Test
 	void  testGetFavoritesList() {
 		FavoritesData fd = new FavoritesData();		
 		assertEquals(0, fd.getFavoritesList().size());
 	}
 
+	// Loop Test #1
 	@Test
 	void testSearchLoop0() {
 		FavoritesData fd = new FavoritesData();
 		assertEquals(0, fd.search("test").size());
 	}
 
+	// Loop Test #1
 	@Test
 	void testSearchLoop1() {
 		FavoritesData fd = new FavoritesData();
@@ -95,6 +104,7 @@ class FavoritesDataTests {
 		assertEquals(1, fd.search("test").size());
 	}
 
+	// Loop Test #1
 	@Test
 	void testSearchLoopN() {
 		FavoritesData fd = new FavoritesData();

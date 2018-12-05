@@ -134,7 +134,7 @@ public class LoopingAudioPlayer implements Runnable {
         }
 	}
 	
-	private double getFadeGain(double startA, double endA, double startB, double endB, double min, double max, double elapsedSeconds) {
+	protected double getFadeGain(double startA, double endA, double startB, double endB, double min, double max, double elapsedSeconds) {
         double gainStart = rangeMap(elapsedSeconds, startA, endA, min, max);
         double gainStop = rangeMap(elapsedSeconds, startB, endB, max, min);
         
@@ -145,7 +145,7 @@ public class LoopingAudioPlayer implements Runnable {
         return gainStart;
 	}
 	
-	private double rangeMap(double oldValue, double oldMin, double oldMax, double newMin, double newMax) {
+	protected double rangeMap(double oldValue, double oldMin, double oldMax, double newMin, double newMax) {
 		if(oldValue < oldMin) {
 			oldValue = oldMin;
 		} else if (oldValue > oldMax) {
