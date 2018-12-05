@@ -10,7 +10,7 @@ import application.FavoritesData;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Node;
 
-class DiscoverControllerTests {
+public class DiscoverControllerTests {
 	
 	@BeforeAll
 	public static void init() {
