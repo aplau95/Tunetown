@@ -58,7 +58,7 @@ public class SettingsController implements Controller {
 		nameBox.setId("Node");
 		Label nameSH = new Label("Name");
 		nameSH.setId(subheaderCSS);
-		Label nameD = new Label("You name will only be used in the app");
+		Label nameD = new Label("Your name will only be used in the app");
 		nameD.setId(descriptionCSS);
 
 		HBox nameEdit = new HBox();
