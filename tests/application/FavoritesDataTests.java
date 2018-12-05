@@ -122,12 +122,14 @@ class FavoritesDataTests {
 		assertEquals(100, fd.search("test").size());
 	}
 
+	// Loop Test #2
 	@Test
 	void testSimpleSearchLoop0() {
 		FavoritesData fd = new FavoritesData();
 		assertEquals(0, fd.searchNames("test").size());
 	}
 
+	// Loop Test #2
 	@Test
 	void testSimpleSearchLoop1() {
 		FavoritesData fd = new FavoritesData();
@@ -140,6 +142,7 @@ class FavoritesDataTests {
 		assertEquals(1, fd.searchNames("test").size());
 	}
 
+	// Loop Test #2
 	@Test
 	void testSimpleSearchLoopN() {
 		FavoritesData fd = new FavoritesData();
