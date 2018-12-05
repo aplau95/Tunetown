@@ -3,10 +3,11 @@ import java.util.*;
 
 public class FavoritesData {
 
-    private LinkedList<TrackData> favoritesList = new LinkedList<TrackData>(); 
+    private LinkedList<TrackData> favoritesList = new LinkedList<>(); 
     Integer totalDuration = 0;
 
     public FavoritesData(){
+        //dummy contructor for dummies ;^)
     }
     
     public TrackData getNextSong(){
