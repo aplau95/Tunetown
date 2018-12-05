@@ -1,4 +1,6 @@
 package application;
+import javafx.scene.Node;
+
 import java.util.*;
 
 public class FavoritesData {
@@ -37,6 +39,25 @@ public class FavoritesData {
 
     public List<TrackData> getFavoritesList() {
         return favoritesList;
+    }
+
+    public List<TrackData> search(String searchText) {
+
+        List<TrackData> results = new ArrayList<>();
+
+        Iterator favoritesIterator = favoritesList.iterator();
+
+        while(favoritesIterator.hasNext()) {
+            TrackData td = (TrackData) favoritesIterator.next();
+            if(td.getArtists().toLowerCase().contains(searchText.toLowerCase()) ||
+                    td.getName().toLowerCase().contains(searchText.toLowerCase()) ||
+                    td.getGenre().toLowerCase().contains(searchText.toLowerCase())) {
+                results.add(td);
+            }
+        }
+
+        return results;
+
     }
 
 }

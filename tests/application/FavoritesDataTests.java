@@ -77,4 +77,42 @@ class FavoritesDataTests {
 		FavoritesData fd = new FavoritesData();		
 		assertEquals(0, fd.getFavoritesList().size());
 	}
+
+	@Test
+	void testSearchLoop0() {
+		FavoritesData fd = new FavoritesData();
+		assertEquals(0, fd.search("test").size());
+	}
+
+	@Test
+	void testSearchLoop1() {
+		FavoritesData fd = new FavoritesData();
+
+		TrackData sample1 = new TrackData();
+		sample1.setName("test");
+		sample1.setDuration(100);
+		sample1.setArtists("testArtists");
+		sample1.setGenre("testGenre");
+		sample1.setImageUrl("https://via.placeholder.com/150");
+		fd.addToFavorites(sample1);
+
+		assertEquals(1, fd.search("test").size());
+	}
+
+	@Test
+	void testSearchLoopN() {
+		FavoritesData fd = new FavoritesData();
+
+		for(int i = 0; i < 100; i++) {
+			TrackData sample = new TrackData();
+			sample.setName("test"+i);
+			sample.setDuration(100);
+			sample.setArtists("test"+i+"Artists");
+			sample.setGenre("test"+i+"Genre");
+			sample.setImageUrl("https://via.placeholder.com/150");
+			fd.addToFavorites(sample);
+		}
+
+		assertEquals(100, fd.search("test").size());
+	}
 }
